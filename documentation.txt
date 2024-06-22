@@ -1,0 +1,100 @@
+--HOME PAGE
+1. navbar with
+        home button
+        signup/login
+        logout 
+        register organization -->
+            organization name, email, password
+        user profile
+2. body section 
+        if not logged in then
+            about the website
+        else:
+            the messages thread --> sent_at, message, maximum of 100 words 
+            number of unread messages
+
+--SIGNUP/LOGIN
+-- username
+-- email
+--password
+
+ORGANIZATIONAL ACCOUNT
+    organization name
+    organization feedback email
+    description
+    link to the administrators
+
+    
+--ORGANIZATIONAL ADMINISTRATORS PAGE
+1. form to add the specific questions needed on the feedback form
+2. generate QR Code after adding the questions.
+    FeedbackForm (ForeignKey to FeedbackForm)
+    QR Code Image/URL
+    Created_at (Timestamp)
+    URL (Link to the feedback form)
+    qr code shouldnt be changed once generated but its content should be able to change
+3. Add new organizational user if:
+    1.user already registered to the website
+    2. once added, can access the messages sent as feedback
+4. Delete organizational admin
+5. can only be accessed if the user is logged in to the initial website, then from there log in to the organizational page using the email and password
+6. administrators can access the information that were earlier submited on different days using a well implemented dashbord
+
+
+/*** SYSTEM USERS SECTION ***/
+--- HOME PAGE
+-form with 5 predefined questions, 3 optional and 2 mandatory
+-comment/complain input secttion
+-send button
+-no login/registration required
+-qrcode is a link to a specific page of the website
+
+
+OTHER IMPORTANT FEATURES
+more than one user can login to the organizations page and manage the feedbacks sent but must be among the users added by original creator of the organization
+
+
+####  ------------------ VIEWS  ------------ ######
+views_main
+  --> home
+  --> signup
+  --> login
+  --> logout
+  --> register_company
+  --> handle users data
+  --> get users data for display
+
+views_admin
+  --> generate qrcode /  generate new qrcode
+  --> add company questions
+  --> add administrators
+  --> upgrade administrators
+  --> remove administrators
+  --> get stored qr code
+
+
+####  ------------------ MODELS  ------------ ######
+users
+  --> email
+  --> fullname
+  --> user type
+  --> password
+
+profile
+    --> username 
+    --> user avatar
+    --> about
+
+company_information
+    --> company email
+    --> company administrators
+    -->  company name
+    --> company customer_service details
+    --> company logo
+
+user_feedback
+    --> message
+    --> time sent
+
+
+

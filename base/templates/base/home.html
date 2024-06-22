@@ -1,0 +1,29 @@
+{% extends 'index.html' %}{% block content %}
+
+<div class="header_section">
+    <h1><a href="">Home</a></h1>
+    <!-- if user doesnt have an account then  -->
+    <h1><a href="">About Us</a></h1>
+    <!-- else if they have an account then  -->
+    <h1><a href="">Admins Page</a></h1>
+
+    <!-- <h1><a href="">Contact Us</a></h1> -->
+    <h1><a href="">Profile</a></h1>
+    <h1><a href="">Signup/Login</a></h1>
+</div>
+<hr>
+<div class="body_section">
+
+    <!-- if the user is not logged in or doesnt have an account then the following will be displayed -->
+    <h2>
+        <a href="" class="register_company">Register Company</a>
+    </h2>
+    <p>About the Company and the services offered. Notifications about new feedback sent</p>
+    <p>register with us to effectively manage your business and the users feedbacks</p>
+    <!-- if the users are logged in then the following section will be diplayed -->
+    <div class="messages_class">
+        <p>message received</p>
+        <p>time received</p>
+    </div>
+
+</div> {% endblock %}
