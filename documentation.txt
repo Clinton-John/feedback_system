@@ -12,7 +12,10 @@
         else:
             the messages thread --> sent_at, message, maximum of 100 words 
             number of unread messages
-
+3. footer section
+        about company
+        contact us
+        
 --SIGNUP/LOGIN
 -- username
 -- email
@@ -76,7 +79,8 @@ views_admin
 ####  ------------------ MODELS  ------------ ######
 users
   --> email
-  --> fullname
+  --> firstname
+  --> lastname
   --> user type
   --> password
 
