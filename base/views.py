@@ -1,19 +1,11 @@
 from django.shortcuts import render, redirect
-from . forms import MyUserCreationForm
+from . forms import MyUserCreationForm, OrgForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 
-'''
-> home
-  --> signup
-  --> login
-  --> logout
-  --> register_company
-  --> handle users data
-  --> get users data for display
-'''
 
-# Create your views here.
+
+#### ------- Home, Login, Logout, Signup------  ####
 def home(request):
     return render(request, 'base/home.html')
 
@@ -62,7 +54,17 @@ def logout_user(request):
     return redirect('home')
 
 
-
+#### ------- Register Company ------  ####
 def register_company(request):
-    return render(request, 'base/register_company.html')
+    form = OrgForm()
+    if request.method == 'POST':
+        form = OrgForm(request.POST)
+        if form.is_valid():
+            org_form = form.save(commit=False)
+            org_form.org_admin = request.user
+            org_form.save()
+            return redirect('home')
+
+    context = {'form':form}
+    return render(request, 'base/register_comp.html', context)
 

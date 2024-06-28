@@ -1,0 +1,16 @@
+{% extends 'index.html' %} {% block content %}
+
+
+<h1>Register Company form</h1>
+<div class="register_company">
+
+
+    <form action="" method="POST">
+        {% csrf_token %} {{form.as_p}}
+        <input type="submit">
+    </form>
+
+
+</div>
+
+{% endblock %} name, email,descr, admins, avatar
