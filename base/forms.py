@@ -13,4 +13,4 @@ class MyUserCreationForm(UserCreationForm):
 class OrgForm(ModelForm):
     class Meta:
         model = RegisteredOrg
-        fields = ['org_name','org_email','org_descr']
+        fields = ['org_name','org_email', 'org_password' ,'org_descr']

@@ -1,0 +1,23 @@
+{% extends 'index.html' %} {% block content %}
+
+<h1>Admins Login Form</h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+
+    <label for="email">Org Email</label>
+    <input type="email" name="org_email" placeholder="organizations email...">
+    <br>
+    <br>
+    <label for="password">Password</label>
+    <input type="password" name="org_password" id="">
+
+    <br>
+    <br>
+    <input type="submit">
+
+</form>
+
+{% if messages %} {% for message in messages %}
+<p>{{message}}</p>
+{% endfor %} {% endif %} {% endblock %}

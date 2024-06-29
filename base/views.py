@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from . forms import MyUserCreationForm, OrgForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from .models import RegisteredOrg
+from .auth import authenticate_org
 
 
 
@@ -61,10 +63,38 @@ def register_company(request):
         form = OrgForm(request.POST)
         if form.is_valid():
             org_form = form.save(commit=False)
-            org_form.org_admin = request.user
             org_form.save()
+            org_form.org_admins.add(request.user)
+            # org_form.org_admins = request.user
             return redirect('home')
 
     context = {'form':form}
     return render(request, 'base/register_comp.html', context)
 
+def login_admin(request):
+    if request.method == 'POST':
+        email = request.POST.get('org_email')
+        password = request.POST.get('org_password')
+
+        try:
+            org = RegisteredOrg.objects.get(org_email=email)
+        except:
+            messages.error(request, 'No Organization registered using the email')
+        
+        ## the authenticate is designed to work only with the user model and cant work with a different
+        org = authenticate_org(email=email, password=password)
+        
+        #in the below line, there will also be an option to check if the request.user is in org.org_admins
+        if org is not None :
+            # access the organization id which will be passed together with the link in the redirect for a specifc page
+            return redirect('admins_page')
+        else:
+            messages.error(request, 'There Was an Error during Login')
+
+
+    return render(request, 'base/login_admin.html')
+
+def admins_page(request):
+    organize = RegisteredOrg.objects.all()
+    context = {'organize':organize}
+    return render(request, 'base/admins.html', context)

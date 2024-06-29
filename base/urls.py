@@ -10,7 +10,12 @@ path('signup/', views.signup_user, name='signup'),
 path('login/', views.login_user, name='login'),
 path('logout/', views.logout_user, name='logout'),
 
-# ------------ LOGIN, SIGNUP, LOGOUT ----- ###
+# ------------ REGISTER ORG ----- ###
 path('register_org/', views.register_company, name='register_org'),
+path('login_admin/', views.login_admin, name='login_admin'),
+
+# the admins page should have an id field to specify which part should be accessed
+path('admins_page/', views.admins_page, name='admins_page'),
+
 
 ]

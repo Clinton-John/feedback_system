@@ -20,4 +20,13 @@ form to add 5 optional questions
     <h2>Add Admins who can access the new messages sent</h2>
     <h2>Give an Admin full access to manage the page</h2>
 </div>
+
+<div class="organization_info">
+    {% for org in organize %}
+    <h2>{{org.org_name}}</h2>
+
+    {% for admin in org.org_admins.all %}
+    <p>{{admin.username}}</p>
+    {% endfor %} {% endfor %}
+</div>
 {% endblock %}
