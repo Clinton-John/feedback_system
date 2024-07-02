@@ -15,3 +15,14 @@ class RegisteredOrg(models.Model):
     
     def __str__(self):
         return self.org_name
+
+class UserFeedback(models.Model):
+    organization = models.ForeignKey(RegisteredOrg, on_delete=models.CASCADE)
+    user_email = models.EmailField(max_length=200, null=True, blank=True)
+    feedback_type = models.CharField(max_length=100, null=True, blank=True)
+    user_feedback = models.TextField()
+    user_ratings = models.IntegerField(null=True, blank=True)
+    submit_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user_feedback

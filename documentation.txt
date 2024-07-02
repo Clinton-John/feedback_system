@@ -101,3 +101,7 @@ user_feedback
     --> time sent
 
 
+CONDITIONS TO BE CHECKED IN THE WEBSITE FUNCTIONALITY
+        -2-FACTOR authentication for any user logging in to an admin page
+        -session expires after a week
+

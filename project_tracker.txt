@@ -1,0 +1,6 @@
+what to be done next, before and all the features to be added 
+
+when clicking an organization field then the field also has an id which needs to be set when 
+
+in the views when handling the login into a website, retreive the organization based on the inserted email and then using the email get the organization id and pass it together with the link to the organization. --DONE  
+

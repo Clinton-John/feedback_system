@@ -1,7 +1,36 @@
 {% extends 'index.html' %} {% block content %}
-<!-- give your feedback to organization name -->
-<form action="">
-    <!-- the company feedback policy -->
-    <!-- text area to collect the user input -->
+<h1>Welcome to {Organization Name} user feedback page</h1>
+<form action="" method="POST">
+    {% csrf_token %}
+    <label for="">Email</label>
+    <input type="text" name="user_email" placeholder="Optional" id="">
+    <br>
+    <br>
+    <label for="">Feedback type</label>
+    <select name="feedback_type" id="">
+        <option value="" disabled selected>Select Suggestion Type</option>
+        <option value="complaint">Complaint</option>
+        <option value="suggestion">Suggestion</option>
+        <option value="Praise">Praise</option>
+        <option value="Question">Question</option>
+    </select>
+    <br>
+    <br>
+    <label for="">Feedback Field</label>
+    <textarea name="user_feedback" id="">Enter Feedback</textarea>
+    <br>
+    <br>
+    <label for="">Organization Rating</label>
+    <select name="user_ratings" id="">
+        <option value="" disabled selected>Select a Rating</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <br>
+    <br>
+    <input type="submit">
 </form>
 {% endblock %}

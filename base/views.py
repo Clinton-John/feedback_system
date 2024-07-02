@@ -87,14 +87,16 @@ def login_admin(request):
         #in the below line, there will also be an option to check if the request.user is in org.org_admins
         if org is not None :
             # access the organization id which will be passed together with the link in the redirect for a specifc page
-            return redirect('admins_page')
+
+            
+            return redirect('admins_page', pk=org.id)
         else:
             messages.error(request, 'There Was an Error during Login')
 
 
     return render(request, 'base/login_admin.html')
 
-def admins_page(request):
+def admins_page(request, pk):
     organize = RegisteredOrg.objects.all()
     context = {'organize':organize}
     return render(request, 'base/admins.html', context)
