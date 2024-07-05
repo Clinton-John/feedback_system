@@ -1,8 +1,10 @@
 {% extends 'index.html' %} {% block content %}
-<h1>Admins Page</h1>
-form to add 5 optional questions
+<h1>{{organization.org_name}} Admins Page</h1>
+
+<h2><a href="{% url 'add_admin' organization.id %}">Add New Administrator</a></h2>
 <!-- when was the service offered to you/ when did you acquire the product -->
 <h2><a href="{% url 'user_feedback' %}">Check on the form</a></h2>
+<hr>
 
 
 
@@ -25,11 +27,12 @@ form to add 5 optional questions
 </div>
 
 <div class="organization_info">
-    {% for org in organize %}
-    <h2>{{org.org_name}}</h2>
+    <h2>{{organization.org_name}}</h2>
 
-    {% for admin in org.org_admins.all %}
-    <p>{{admin.username}}</p>
-    {% endfor %} {% endfor %}
+    {% for admin in organization.org_admins.all %}
+    <ul>
+        <li>{{admin.username}}</li>
+    </ul>
+    {% endfor %}
 </div>
 {% endblock %}

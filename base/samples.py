@@ -17,11 +17,6 @@ def admins_dashboard(request):
 
 
 
-
-
-
-
-
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import RegisteredOrg

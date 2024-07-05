@@ -88,7 +88,6 @@ def login_admin(request):
         if org is not None :
             # access the organization id which will be passed together with the link in the redirect for a specifc page
 
-            
             return redirect('admins_page', pk=org.id)
         else:
             messages.error(request, 'There Was an Error during Login')
@@ -97,6 +96,8 @@ def login_admin(request):
     return render(request, 'base/login_admin.html')
 
 def admins_page(request, pk):
-    organize = RegisteredOrg.objects.all()
-    context = {'organize':organize}
+    if not request.user.is_authenticated:
+        return redirect('home')
+    organization = RegisteredOrg.objects.get(id=pk)
+    context = {'organization':organization}
     return render(request, 'base/admins.html', context)
