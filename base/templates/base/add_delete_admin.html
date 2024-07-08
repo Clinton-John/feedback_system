@@ -1,0 +1,30 @@
+{% extends 'index.html' %}{% block content %} {% if page == 'add_admin' %}
+<div class="add_administrator">
+    <h1>Add New Administrator</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <label for="email">User Email</label>
+        <input type="email" name="email" required>
+        <br>
+        <br>
+        <input type="submit" value="Add Admin">
+    </form>
+</div>
+
+{% else %}
+<div class="delete_administrator">
+    <h1>Delete Administrator</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <label for="email">User Email</label>
+        <input type="email" name="email">
+        <input type="submit">
+    </form>
+
+</div>
+{% endif %}
+<div class="display_errors">
+    {% if messages %} {% for message in messages %}
+    <p>{{message}}</p>
+</div>
+{% endfor %} {% endif %} {% endblock %}

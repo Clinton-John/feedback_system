@@ -54,7 +54,8 @@ ORGANIZATIONAL ACCOUNT
 
 
 OTHER IMPORTANT FEATURES
-more than one user can login to the organizations page and manage the feedbacks sent but must be among the users added by original creator of the organization
+--more than one user can login to the organizations page and manage the feedbacks sent but must be among the users added by original creator of the organization
+-- only the initial creator of the organization can add and delete other administrators. they are the ones who can also update the page that is initially set by the user 
 
 
 ####  ------------------ VIEWS  ------------ ######

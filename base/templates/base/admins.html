@@ -1,9 +1,23 @@
 {% extends 'index.html' %} {% block content %}
-<h1>{{organization.org_name}} Admins Page</h1>
 
-<h2><a href="{% url 'add_admin' organization.id %}">Add New Administrator</a></h2>
-<!-- when was the service offered to you/ when did you acquire the product -->
-<h2><a href="{% url 'user_feedback' %}">Check on the form</a></h2>
+<div class="navbar_class">
+    <h1>Top Navigation Bar</h1>
+    <h1>{{organization.org_name}} Admins Page</h1>
+    <h2><a href="">Profile-{{request.user}}</a></h2>
+</div>
+<hr>
+<div class="adminisstrator_functionalitites">
+    <!-- only accessible by the super administrator which is specified -->
+    {% if request.user.username == 'admin' %}
+    <h1>Administrator Functionalities</h1>
+    <h2><a href="{% url 'add_admin' organization.id %}">Add New Administrator</a></h2>
+
+    <h2><a href="{% url 'delete_admin' organization.id %}">Delete Administrator</a></h2>
+    {% endif %}
+    <!-- when was the service offered to you/ when did you acquire the product -->
+    <h2><a href="{% url 'user_feedback' %}">Check on the form</a></h2>
+</div>
+
 <hr>
 
 

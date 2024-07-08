@@ -2,9 +2,9 @@
 views_admin
   --> generate qrcode /  generate new qrcode
   --> add company questions
-  --> add administrators
+  --> add administrators -- Done
   --> upgrade administrators
-  --> remove administrators
+  --> remove administrators --Done
   --> get stored qr code
 '''
 
@@ -31,6 +31,7 @@ def feedback_page(request):
   return render(request, 'base/qrcode_form.html')
 
 def add_admin(request, pk):
+  page = 'add_admin'
 
   if not request.user.is_authenticated:
     return redirect('home')
@@ -51,6 +52,27 @@ def add_admin(request, pk):
     else:
       messages.error(request, "The User isnt Registered to the system")
 
-  return render(request,'base/add_admin_form.html')
+  context = {'page':page}
+
+  return render(request,'base/add_delete_admin.html', context)
 
 
+def delete_admin(request, pk):
+  #gets user email, checks if already in the registered admins of organization, deletes user if already exists
+  page = 'delete_admin'
+  organization = RegisteredOrg.objects.get(id=pk)
+  if request.method == 'POST':
+    user_email = request.POST.get('email')
+    try:
+      user = User.objects.get(email=user_email)
+    except:
+      messages.error(request, "User Does Not Exist")
+      return redirect('delete_admin', pk=organization.id)
+    
+    if user in organization.org_admins.all():
+      organization.org_admins.remove(user)
+      messages.success(request, f"{user_email} has been successfully removed from the organizations admins")
+      return redirect('admins_page', pk=organization.id)
+
+  context = {'page':page}
+  return render(request, 'base/add_delete_admin.html', context)

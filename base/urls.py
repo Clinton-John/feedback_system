@@ -20,8 +20,8 @@ path('admins_page/<str:pk>/', views.admins_page, name='admins_page'),
 path('user_feedack/', views_admin.feedback_page, name="user_feedback"),
 #Add Admins form
 path('add_admin/<str:pk>/', views_admin.add_admin, name="add_admin"),
-#Add Admin handler
-# path('add_admin/<str:pk>', views_admin.add_admin, name="add_admin")
+#Delete Admin
+path('delete_admin/<str:pk>/', views_admin.delete_admin, name="delete_admin")
 
 
 ]
