@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, RegisteredOrg, UserFeedback
+from .models import User, RegisteredOrg, UserFeedback, Profile
 from django.forms import ModelForm
 
 
@@ -16,7 +16,8 @@ class OrgForm(ModelForm):
         fields = ['org_name','org_email', 'org_password' ,'org_descr']
 
 
-# class FeedbackForm(ModelForm):
-#     class Meta:
-#         model = UserFeedback
-#         field = ['user_email','feedback_type']
+class ProfileForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = '__all__'
+        exclude = []

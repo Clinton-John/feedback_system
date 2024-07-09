@@ -10,6 +10,10 @@ path('signup/', views.signup_user, name='signup'),
 path('login/', views.login_user, name='login'),
 path('logout/', views.logout_user, name='logout'),
 
+# ------------- USER PROFILE SECTION ----###
+path('user_profile/<str:pk>', views.user_profile, name='user_profile'),
+path('update_profile/<str:pk>', views.update_profile, name='update_profile'),
+
 # ------------ REGISTER ORG ----- ###
 path('register_org/', views.register_company, name='register_org'),
 path('login_admin/', views.login_admin, name='login_admin'),

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from . forms import MyUserCreationForm, OrgForm
+from . forms import MyUserCreationForm, OrgForm, ProfileForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .models import RegisteredOrg
@@ -58,6 +58,7 @@ def logout_user(request):
 
 #### ------- Register Company ------  ####
 def register_company(request):
+    page = 'register-company'
     form = OrgForm()
     if request.method == 'POST':
         form = OrgForm(request.POST)
@@ -68,10 +69,11 @@ def register_company(request):
             # org_form.org_admins = request.user
             return redirect('home')
 
-    context = {'form':form}
-    return render(request, 'base/register_comp.html', context)
+    context = {'form':form, 'page':page}
+    return render(request, 'base/login_ad_register.html', context)
 
 def login_admin(request):
+    page = 'login_admin'
     if request.method == 'POST':
         email = request.POST.get('org_email')
         password = request.POST.get('org_password')
@@ -91,9 +93,10 @@ def login_admin(request):
             return redirect('admins_page', pk=org.id)
         else:
             messages.error(request, 'There Was an Error during Login')
+    context = {'page':page}
 
 
-    return render(request, 'base/login_admin.html')
+    return render(request, 'base/login_ad_register.html', context)
 
 def admins_page(request, pk):
     if not request.user.is_authenticated:
@@ -101,3 +104,15 @@ def admins_page(request, pk):
     organization = RegisteredOrg.objects.get(id=pk)
     context = {'organization':organization}
     return render(request, 'base/admins.html', context)
+
+
+def user_profile(request, pk):
+    form = ProfileForm()
+    context = {'form':form}
+    return render(request, 'base/profile.html', context)
+
+def update_profile(request, pk):
+    page = 'update_profile'
+    form = ProfileForm()
+    context = {'form':form, 'page':page}
+    return render(request, 'base/primary_form.html', context)

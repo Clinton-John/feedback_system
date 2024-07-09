@@ -1,5 +1,4 @@
-{% extends 'index.html' %} {% block content %}
-
+{% extends 'index.html' %} {% block content %} {% if page == 'login_admin' %}
 <h1>Admins Login Form</h1>
 
 <form action="" method="POST">
@@ -17,7 +16,18 @@
     <input type="submit">
 
 </form>
+{% else %}
+<h1>Register Company form</h1>
+<div class="register_company">
 
-{% if messages %} {% for message in messages %}
+
+    <form action="" method="POST">
+        {% csrf_token %} {{form.as_p}}
+        <input type="submit">
+    </form>
+
+
+</div>
+{% endif %} {% if messages %} {% for message in messages %}
 <p>{{message}}</p>
 {% endfor %} {% endif %} {% endblock %}

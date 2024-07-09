@@ -8,3 +8,10 @@ in the views when handling the login into a website, retreive the organization b
 -->> add the user who is logged in to the website and display their profile. that is the admin who is inside the admins dashbord and accessing the information
 
 -->> out of all of the administrators, the user with the name admin is the only one allowed to delete the administrators and add the administrators to the specific organization. the other administrators can only view and reply to the feedback sent by stakeholders and customers. 
+
+
+--->>>> Updating the user profile.
+--->>> add the profile form and make it be visible
+
+
+later ---> update the organizational profile
