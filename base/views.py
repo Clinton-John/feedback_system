@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from . forms import MyUserCreationForm, OrgForm, ProfileForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .models import RegisteredOrg
+from .models import RegisteredOrg, User,Profile
 from .auth import authenticate_org
 
 
@@ -107,12 +107,21 @@ def admins_page(request, pk):
 
 
 def user_profile(request, pk):
+    user = User.objects.get(id=pk)
     form = ProfileForm()
-    context = {'form':form}
+
+    context = {'form':form, 'user':user}
     return render(request, 'base/profile.html', context)
 
 def update_profile(request, pk):
     page = 'update_profile'
-    form = ProfileForm()
+    user = request.user
+    form = ProfileForm(instance=user)
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=user)
+
+        if form.is_valid():
+            form.save()
+            return redirect('user_profile', pk=user.id)
     context = {'form':form, 'page':page}
     return render(request, 'base/primary_form.html', context)

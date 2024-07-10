@@ -10,7 +10,8 @@ in the views when handling the login into a website, retreive the organization b
 -->> out of all of the administrators, the user with the name admin is the only one allowed to delete the administrators and add the administrators to the specific organization. the other administrators can only view and reply to the feedback sent by stakeholders and customers. 
 
 
---->>>> Updating the user profile.
+--->>>> Updating the user profile. 
+    the instance should be to the specific user
 --->>> add the profile form and make it be visible
 
 
