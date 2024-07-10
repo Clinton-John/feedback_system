@@ -107,3 +107,7 @@ CONDITIONS TO BE CHECKED IN THE WEBSITE FUNCTIONALITY
         -2-FACTOR authentication for any user logging in to an admin page
         -session expires after a week
 
+
+#### -------- SIGNALS
+    --> User profile when user signs up
+    -->organizational profile when organization is created

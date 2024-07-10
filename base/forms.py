@@ -13,7 +13,12 @@ class MyUserCreationForm(UserCreationForm):
 class OrgForm(ModelForm):
     class Meta:
         model = RegisteredOrg
-        fields = ['org_name','org_email', 'org_password' ,'org_descr']
+        fields = ['org_name','org_email', 'org_avatar', 'org_password' ,'org_descr']
+
+class UpdateOrgForm(ModelForm):
+    class Meta:
+        model = RegisteredOrg
+        fields = ['org_name', 'org_avatar' ,'org_descr']
 
 
 class ProfileForm(ModelForm):

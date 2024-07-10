@@ -107,14 +107,15 @@ def admins_page(request, pk):
 
 
 def user_profile(request, pk):
+    page = 'user_profile'
     user = User.objects.get(id=pk)
     form = ProfileForm()
 
-    context = {'form':form, 'user':user}
+    context = {'form':form, 'user':user, 'page':page}
     return render(request, 'base/profile.html', context)
 
 def update_profile(request, pk):
-    page = 'update_profile'
+    page = 'update_user_profile'
     user = request.user
     form = ProfileForm(instance=user)
     if request.method == 'POST':
@@ -124,4 +125,4 @@ def update_profile(request, pk):
             form.save()
             return redirect('user_profile', pk=user.id)
     context = {'form':form, 'page':page}
-    return render(request, 'base/primary_form.html', context)
+    return render(request, 'base/update_form.html', context)

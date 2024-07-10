@@ -1,5 +1,4 @@
-{% extends 'index.html' %}{% block content %}
-
+{% extends 'index.html' %}{% block content %} {% if page == 'user_profile' %}
 <div class="user_profile">
     <h1>{{user.username}}</h1>
     <p>{{user.email}}</p>
@@ -8,4 +7,23 @@
     <h1></h1>
 
 </div>
-{% endblock %}
+{% elif page == "org_profile" %}
+<div class="org_profile">
+    <h1>Organizations Profile</h1>
+    <h1>{{org.org_name}}</h1>
+    <h2>{{org.org_email}}</h2>
+    <p>{{org.org_descr}}</p>
+    <!-- <img src="{{org.org_avatar}}" alt=""> -->
+
+    <hr>
+    <h2>The available admins for Kabarak University are : </h2>
+    {% for admin in org.org_admins.all %}
+    <ul>
+        <li>
+            {{admin.username}}
+        </li>
+    </ul>
+    {% endfor %}
+    <h2><a href="{% url 'update_profile' org.id %}">Update Profile</a></h2>
+</div>
+{% endif %} {% endblock %}

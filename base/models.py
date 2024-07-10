@@ -22,12 +22,14 @@ class RegisteredOrg(models.Model):
     org_descr = models.TextField(null=True)
     org_admins = models.ManyToManyField(User, related_name='admin_organizations')
     org_password = models.CharField(max_length=128, null=True)
-    # org_avatar = 
+    org_avatar = models.ImageField(null=True , blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     
     def __str__(self):
         return self.org_name
+
+
 
 class UserFeedback(models.Model):
     # organization = models.ForeignKey(RegisteredOrg, on_delete=models.CASCADE, null=True)

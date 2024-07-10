@@ -3,7 +3,8 @@
 <div class="navbar_class">
     <h1>Top Navigation Bar</h1>
     <h1>{{organization.org_name}} Admins Page</h1>
-    <h2><a href="">Profile-{{request.user}}</a></h2>
+    <h2><a href="{% url 'org_profile' organization.id %}">Profile-{{organization.org_name}}</a></h2>
+
 </div>
 <hr>
 <div class="adminisstrator_functionalitites">
@@ -40,13 +41,5 @@
     <h2>Give an Admin full access to manage the page</h2>
 </div>
 
-<div class="organization_info">
-    <h2>{{organization.org_name}}</h2>
 
-    {% for admin in organization.org_admins.all %}
-    <ul>
-        <li>{{admin.username}}</li>
-    </ul>
-    {% endfor %}
-</div>
 {% endblock %}

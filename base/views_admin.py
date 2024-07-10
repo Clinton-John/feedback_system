@@ -10,6 +10,7 @@ views_admin
 
 from .models import RegisteredOrg, User, UserFeedback
 from django.contrib import messages
+from .forms import OrgForm, UpdateOrgForm
 
 from django.shortcuts import render, redirect
 from .models import UserFeedback, RegisteredOrg
@@ -76,3 +77,28 @@ def delete_admin(request, pk):
 
   context = {'page':page}
   return render(request, 'base/add_delete_admin.html', context)
+
+def org_profile(request, pk):
+  page = 'org_profile'
+  org = RegisteredOrg.objects.get(id=pk)
+  context = {'page':page, 'org':org}
+  return render(request, 'base/profile.html', context)
+
+def update_org_profile(request, pk):
+  page = 'update_org_profile'
+  org = RegisteredOrg.objects.get(id=pk)
+  form = UpdateOrgForm(instance=org)
+
+  if request.method == 'POST':
+    org.org_name = request.POST.get('org_name')
+    org.org_descr = request.POST.get('org_descr')
+    org.org_avatar = request.FILES.get('org_avatar')
+    org.save()
+    return redirect('admins_page', pk=org.id)
+
+  context = {'page':page, 'form':form}
+  
+  return render(request, 'base/update_form.html', context)
+
+
+

@@ -16,3 +16,7 @@ in the views when handling the login into a website, retreive the organization b
 
 
 later ---> update the organizational profile
+for the org profile, no need to create profile, instead, add all the fields and update directly
+
+one form that will be the same for all of the registered organizations
+
