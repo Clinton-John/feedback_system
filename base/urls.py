@@ -10,17 +10,22 @@ path('signup/', views.signup_user, name='signup'),
 path('login/', views.login_user, name='login'),
 path('logout/', views.logout_user, name='logout'),
 
+# ------------- USER APRECIATION ----###
+path('appreciation_page/', views.appreciation_page, name='appreciation_page'),
+path('org_settings/<str:pk>', views_admin.org_settings, name='org_settings'),
+
+
 # ------------- USER PROFILE SECTION ----###
 path('user_profile/<str:pk>', views.user_profile, name='user_profile'),
 path('update_profile/<str:pk>', views.update_profile, name='update_profile'),
 
 # ------------ REGISTER ORG ----- ###
 path('register_org/', views.register_company, name='register_org'),
+
 path('login_admin/', views.login_admin, name='login_admin'),
 
 
 # ------------ ADMINS PAGE ----- ###
-
 # the admins page should have an id field to specify which part should be accessed
 path('admins_page/<str:pk>/', views.admins_page, name='admins_page'),
 path('add_admin/<str:pk>/', views_admin.add_admin, name="add_admin"),#Delete Admin
@@ -29,7 +34,6 @@ path('org_profile/<str:pk>/', views_admin.org_profile, name="org_profile"),
 path('delete_admin/<str:pk>/', views_admin.delete_admin, name="delete_admin"),
 
 # ------------ FEEDBACK SECTION ----- ###
-
 path('user_feedack/<str:pk>/', views_admin.feedback_page, name="user_feedback"),
 path('individual_feedback/<str:pk>/', views_admin.individual_feedback, name="individual_feedback"),
 

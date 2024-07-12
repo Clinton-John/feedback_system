@@ -99,12 +99,22 @@ def login_admin(request):
     return render(request, 'base/login_ad_register.html', context)
 
 def admins_page(request, pk):
+    feedback_list = ['Complaint', 'Suggestion','Praise', 'Question']
+
+    feedback_list2 = {
+        'complaint': 'Complaint',
+        'suggestion': 'Suggestion',
+        'praise': 'Praise',
+        'question': 'Question'
+
+    }
+        
     organization = RegisteredOrg.objects.get(id=pk)
     org_feedbacks = organization.userfeedback_set.all()
     if not request.user.is_authenticated:
         return redirect('home')
     
-    context = {'organization':organization, 'org_feedbacks':org_feedbacks}
+    context = {'organization':organization, 'org_feedbacks':org_feedbacks, 'feedback_list':feedback_list}
     return render(request, 'base/admins.html', context)
 
 
@@ -128,3 +138,6 @@ def update_profile(request, pk):
             return redirect('user_profile', pk=user.id)
     context = {'form':form, 'page':page}
     return render(request, 'base/update_form.html', context)
+
+def appreciation_page(request):
+    return render(request, 'base/appreciation.html')

@@ -1,32 +1,37 @@
 {% extends 'index.html' %} {% block content %}
 
+<h1><a href="{% url 'home' %}">Home</a></h1>
+
 <div class="navbar_class">
     <h1>Top Navigation Bar</h1>
     <h1>{{organization.org_name}} Admins Page</h1>
     <h2><a href="{% url 'org_profile' organization.id %}">Profile-{{organization.org_name}}</a></h2>
+    {% if request.user.username == 'admin' %}
+    <h2><a href="{% url 'org_settings' organization.id %}">Settings</a></h2>
+    {% endif %}
 
 </div>
 <hr>
-<div class="adminisstrator_functionalitites">
-    <!-- only accessible by the super administrator which is specified -->
-    {% if request.user.username == 'admin' %}
-    <h1>Administrator Functionalities</h1>
-    <h2><a href="{% url 'add_admin' organization.id %}">Add New Administrator</a></h2>
-
-    <h2><a href="{% url 'delete_admin' organization.id %}">Delete Administrator</a></h2>
-    {% endif %}
-    <!-- when was the service offered to you/ when did you acquire the product -->
-    <h2><a href="{% url 'user_feedback' organization.id %}">Check on the form</a></h2>
-</div>
 
 <hr>
 <div class="user_feedbacks">
-    <h1>The Feedbacks received</h1>
-    {% for feedback in org_feedbacks %}
-    <ul>
-        <li><a href="{% url 'individual_feedback' feedback.id %}">{{feedback.user_feedback}}</a></li>
-    </ul>
-    {% endfor %}
+    <div class="feedback1">
+        <h1>Feedback options</h1>
+        {% if feedback_list %} {% for feedback in feedback_list %}
+        <li>{{ feedback }}</li>
+        {% endfor %} {% else %}
+        <li>No feedbacks yet</li>
+        {% endif %}
+    </div>
+    <div class="feedback2">
+        <h1>The Feedbacks received</h1>
+        {% for feedback in org_feedbacks %}
+        <ul>
+            <li><a href="{% url 'individual_feedback' feedback.id %}">{{feedback.user_feedback}}</a></li>
+        </ul>
+        {% endfor %}
+    </div>
+
 
 </div>
 <hr>

@@ -1,9 +1,13 @@
 {% extends 'index.html' %} {% block content %}
 
-<h1>Specific feedback</h1>
+<h1><a href="{{request.META.HTTP_REFERER}}">Go Back</a></h1>
+
 <div class="individual_feedback">
-    <h2>{{individual_feedback.user_email}}</h2>
-    <h2>{{individual_feedback.feedback_type}}</h2>
+    <h2>Individual feedback</h2>
+    {% if individual_feedback.user_email %}
+    <h2>User Email : {{individual_feedback.user_email}}</h2>
+    {% endif %}
+    <h2>Feedback Type: {{individual_feedback.feedback_type}}</h2>
     <p>{{individual_feedback.user_feedback}}</p>
 </div>
 {% endblock %}

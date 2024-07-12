@@ -1,0 +1,20 @@
+/* body {
+    background-color: brown;
+} */
+
+.user_feedbacks {
+    display: flex;
+    width: 100%;
+}
+
+.feedback1 {
+    flex: 0 0 25%;
+    /* Flex-grow: 0, Flex-shrink: 0, Flex-basis: 30% */
+    /* background-color: lightblue; */
+}
+
+.feedback2 {
+    flex: 0 0 75%;
+    /* Flex-grow: 0, Flex-shrink: 0, Flex-basis: 70% */
+    /* background-color: lightgreen; */
+}

@@ -22,5 +22,14 @@ one form that will be the same for all of the registered organizations
 the feedbacks can be shown in the admins page, and when clicked opens a new page with the full message sent
 
 -- after the user is redirected to the individual message screen, have a link button that returns the user back to the initial page.
--- separate the users to see those that send their email and those who dont send their information
+-- separate the users to see those that send their email and those who dont send their information. in the forms, set that if the feedback type is set to question then the user must submit their email
+
+ADMINS PAGE 
+    --> navbar with the number of feedbacks received
+    --> button for each feedback type
+    --> button for feedbacks with the emails
+    --> display feedbacks as a room messages and each can be clicked
+    --> feedback with emails allows the admin to write back the answer to the user
+
+seting up the feedback types on the fisrt section
 

@@ -1,5 +1,7 @@
 {% extends 'index.html' %} {% block content %} {% if page == 'signup' %}
 <h1>Signup Page</h1>
+<h1><a href="{% url 'home' %}">Home</a></h1>
+
 <form action="" method="POST" class="signup">
     {% csrf_token %} {{form.as_p}}
     <input type="submit">
@@ -7,6 +9,8 @@
 <p>Already have an account?</p>
 <a href="{% url 'login' %}">Sign in</a> {% else %}
 <h1>Login Page</h1>
+<h1><a href="{% url 'home' %}">Home</a></h1>
+
 <form method="POST" action="">
     {% csrf_token %}
 

@@ -1,6 +1,8 @@
 {% extends 'index.html' %}{% block content %} {% if page == 'user_profile' %}
+
 <div class="user_profile">
-    <h1>{{user.username}}</h1>
+
+    <h2>{{user.username}}</h2>
     <p>{{user.email}}</p>
     <h2><a href="{% url 'update_profile' request.user.id %}">Update Profile</a></h2>
     <hr>
@@ -9,6 +11,8 @@
 </div>
 {% elif page == "org_profile" %}
 <div class="org_profile">
+    <h1><a href="{% url 'admins_page' org.id %}">Back</a></h1>
+
     <h1>Organizations Profile</h1>
     <h1>{{org.org_name}}</h1>
     <h2>{{org.org_email}}</h2>

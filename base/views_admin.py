@@ -3,7 +3,7 @@ views_admin
   --> generate qrcode /  generate new qrcode
   --> add company questions
   --> add administrators -- Done
-  --> upgrade administrators
+  --> upgrade administrators // not included
   --> remove administrators --Done
   --> get stored qr code
 '''
@@ -27,7 +27,7 @@ def feedback_page(request, pk):
       user_feedback = request.POST.get('user_feedback'),
       user_ratings =request.POST.get('user_ratings')
     )
-    return redirect('home')
+    return redirect('appreciation_page')
 
   context = {'org':org}
 
@@ -102,6 +102,12 @@ def update_org_profile(request, pk):
   context = {'page':page, 'form':form}
   
   return render(request, 'base/update_form.html', context)
+
+def org_settings(request, pk):
+  org = RegisteredOrg.objects.get(id=pk)
+
+  context = {'org':org}
+  return render(request, 'base/settings.html', context)
 
 
 def individual_feedback(request, pk):
