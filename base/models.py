@@ -32,7 +32,7 @@ class RegisteredOrg(models.Model):
 
 
 class UserFeedback(models.Model):
-    # organization = models.ForeignKey(RegisteredOrg, on_delete=models.CASCADE, null=True)
+    organization = models.ForeignKey(RegisteredOrg, on_delete=models.CASCADE, null=True)
     user_email = models.EmailField(max_length=200, null=True, blank=True)
     feedback_type = models.CharField(max_length=100, null=True, blank=True)
     user_feedback = models.TextField()

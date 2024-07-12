@@ -16,17 +16,20 @@
     <h2><a href="{% url 'delete_admin' organization.id %}">Delete Administrator</a></h2>
     {% endif %}
     <!-- when was the service offered to you/ when did you acquire the product -->
-    <h2><a href="{% url 'user_feedback' %}">Check on the form</a></h2>
+    <h2><a href="{% url 'user_feedback' organization.id %}">Check on the form</a></h2>
 </div>
 
 <hr>
+<div class="user_feedbacks">
+    <h1>The Feedbacks received</h1>
+    {% for feedback in org_feedbacks %}
+    <ul>
+        <li><a href="{% url 'individual_feedback' feedback.id %}">{{feedback.user_feedback}}</a></li>
+    </ul>
+    {% endfor %}
 
-
-
-<!-- form to add 5 optional questions -->
-<!-- when was the service offered to you/ when did you acquire the product -->
-<!-- <p>A field to collect all the users input in the form</p> -->
-
+</div>
+<hr>
 
 <!-- if qr code is already generated then -->
 <p>There is currently a generated code</p>

@@ -101,6 +101,10 @@ company_information
 user_feedback
     --> message
     --> time sent
+    --> email --optional
+    --> organization --optional
+    --> feedback_type --optional
+    --> ratings --optional
 
 
 CONDITIONS TO BE CHECKED IN THE WEBSITE FUNCTIONALITY
@@ -108,6 +112,6 @@ CONDITIONS TO BE CHECKED IN THE WEBSITE FUNCTIONALITY
         -session expires after a week
 
 
-#### -------- SIGNALS
+#### -------- SIGNALS ------ ###
     --> User profile when user signs up
     -->organizational profile when organization is created

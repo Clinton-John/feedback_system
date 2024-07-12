@@ -1,5 +1,6 @@
 {% extends 'index.html' %} {% block content %}
-<h1>Welcome to {Organization Name} user feedback page</h1>
+<h1>Welcome to {{org.org_name}} user feedback page</h1>
+<p>Please Select the Feedback type based on the categories and enter your feedback. The Other fields in the form are optional</p>
 <form action="" method="POST">
     {% csrf_token %}
     <label for="">Email</label>
@@ -8,7 +9,7 @@
     <br>
     <label for="">Feedback type</label>
     <select name="feedback_type" id="">
-        <option value="" disabled selected>Select Suggestion Type</option>
+        <option value="" disabled selected>Select feedback Type</option>
         <option value="complaint">Complaint</option>
         <option value="suggestion">Suggestion</option>
         <option value="Praise">Praise</option>
@@ -17,10 +18,10 @@
     <br>
     <br>
     <label for="">Feedback Field</label>
-    <textarea name="user_feedback" id="">Enter Feedback</textarea>
+    <textarea name="user_feedback" id="" placeholder="Message ...."></textarea>
     <br>
     <br>
-    <label for="">Organization Rating</label>
+    <label for="">Rate our Organization</label>
     <select name="user_ratings" id="">
         <option value="" disabled selected>Select a Rating</option>
         <option value="1">1</option>
@@ -31,8 +32,23 @@
     </select>
     <br>
     <br>
-    <label for="date_of_service">Date of Service</label>
-    <input type="date" name="date_of_service" id="">
+
     <input type="submit">
 </form>
+<hr>
+<div class="contact_us">
+    <p>For Futher Communication, Contact our Organization through the following channels</p>
+    <h3>
+        <a href="">Email</a>
+    </h3>
+    <h3>
+        <a href="">Phone</a>
+    </h3>
+    <h3>
+        <a href="">Facebook</a>
+    </h3>
+
+
+
+</div>
 {% endblock %}

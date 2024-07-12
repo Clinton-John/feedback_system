@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from . forms import MyUserCreationForm, OrgForm, ProfileForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .models import RegisteredOrg, User,Profile
+from .models import RegisteredOrg, User,Profile, UserFeedback
 from .auth import authenticate_org
 
 
@@ -99,10 +99,12 @@ def login_admin(request):
     return render(request, 'base/login_ad_register.html', context)
 
 def admins_page(request, pk):
+    organization = RegisteredOrg.objects.get(id=pk)
+    org_feedbacks = organization.userfeedback_set.all()
     if not request.user.is_authenticated:
         return redirect('home')
-    organization = RegisteredOrg.objects.get(id=pk)
-    context = {'organization':organization}
+    
+    context = {'organization':organization, 'org_feedbacks':org_feedbacks}
     return render(request, 'base/admins.html', context)
 
 

@@ -15,12 +15,13 @@ from .forms import OrgForm, UpdateOrgForm
 from django.shortcuts import render, redirect
 from .models import UserFeedback, RegisteredOrg
 
-def feedback_page(request):
+def feedback_page(request, pk):
+
+  org = RegisteredOrg.objects.get(id=pk)
   if request.method == 'POST':
 
-    user_email = request.POST.get('user_email')
-
     feedback = UserFeedback.objects.create(
+      organization= org,
       user_email = request.POST.get('user_email'),
       feedback_type = request.POST.get('feedback_type'),
       user_feedback = request.POST.get('user_feedback'),
@@ -28,8 +29,10 @@ def feedback_page(request):
     )
     return redirect('home')
 
+  context = {'org':org}
 
-  return render(request, 'base/qrcode_form.html')
+
+  return render(request, 'base/qrcode_form.html', context)
 
 def add_admin(request, pk):
   page = 'add_admin'
@@ -99,6 +102,12 @@ def update_org_profile(request, pk):
   context = {'page':page, 'form':form}
   
   return render(request, 'base/update_form.html', context)
+
+
+def individual_feedback(request, pk):
+  individual_feedback = UserFeedback.objects.get(id=pk)
+  context = {'individual_feedback':individual_feedback}
+  return render(request, 'base/feedback.html', context)
 
 
 
