@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .models import RegisteredOrg, User,Profile, UserFeedback
 from .auth import authenticate_org
-
+from django.db.models import Q
 
 
 #### ------- Home, Login, Logout, Signup------  ####
@@ -64,9 +64,11 @@ def register_company(request):
         form = OrgForm(request.POST)
         if form.is_valid():
             org_form = form.save(commit=False)
+            org_form.super_admin = request.user
+
             org_form.save()
             org_form.org_admins.add(request.user)
-            # org_form.org_admins = request.user
+
             return redirect('home')
 
     context = {'form':form, 'page':page}
@@ -99,18 +101,17 @@ def login_admin(request):
     return render(request, 'base/login_ad_register.html', context)
 
 def admins_page(request, pk):
-    feedback_list = ['Complaint', 'Suggestion','Praise', 'Question']
-
-    feedback_list2 = {
-        'complaint': 'Complaint',
-        'suggestion': 'Suggestion',
-        'praise': 'Praise',
-        'question': 'Question'
-
-    }
-        
+    feedback_list = ['complaint', 'suggestion','praise', 'question']
     organization = RegisteredOrg.objects.get(id=pk)
-    org_feedbacks = organization.userfeedback_set.all()
+
+    # implementing functionality to return the feedbacks based on the feedbck type
+    # q = request.GET.get('q') if request.GET.get('q') != None else ''
+    q = request.GET.get('q', '').strip().replace('%', '')
+
+    print(q)
+    org_feedbacks = UserFeedback.objects.filter(organization=organization,feedback_type__icontains=q)
+        
+    # org_feedbacks = organization.userfeedback_set.all()
     if not request.user.is_authenticated:
         return redirect('home')
     

@@ -20,6 +20,7 @@ class RegisteredOrg(models.Model):
     org_name = models.CharField(null=True, max_length=100)
     org_email = models.EmailField(null=True, max_length=100)
     org_descr = models.TextField(null=True)
+    super_admin =  models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, related_name='super_admin_organizations')
     org_admins = models.ManyToManyField(User, related_name='admin_organizations')
     org_password = models.CharField(max_length=128, null=True)
     org_avatar = models.ImageField(null=True , blank=True)
