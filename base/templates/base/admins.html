@@ -18,8 +18,8 @@
     <div class="feedback1">
         <h1>Feedback options</h1>
         <h3><a href="{% url 'admins_page' organization.id %}">All</a></h3>
-        {% for feedback in feedback_list %}
-        <h3><a href="{% url 'admins_page' organization.id %}?q={{feedback|urlencode}} %">{{ feedback }}</a></h3>
+        {% for feedback in feedback_categories %}
+        <h3><a href="{% url 'admins_page' organization.id %}?q={{feedback|urlencode}}">{{ feedback }} <span>   {{feedback.userfeedback_set.all.count}}</span></a></h3>
         {% endfor %}
     </div>
     <div class="feedback2">

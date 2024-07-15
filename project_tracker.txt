@@ -32,6 +32,10 @@ ADMINS PAGE
     --> feedback with emails allows the admin to write back the answer to the user
 
 seting up the feedback types on the fisrt section
+-- count each number of feedback based on the types
 
-NOT YET DONE SOLVE LATER ----
 --ensure the users feedback returns the feedback messages based on the clicked 
+switching to creating a model for the feedback type and relating it to the feedback using the foreign key
+
+only admins of an organization can login to it 
+

@@ -8,7 +8,7 @@ views_admin
   --> get stored qr code
 '''
 
-from .models import RegisteredOrg, User, UserFeedback
+from .models import RegisteredOrg, User, UserFeedback, FeedbackType
 from django.contrib import messages
 from .forms import OrgForm, UpdateOrgForm
 
@@ -16,14 +16,18 @@ from django.shortcuts import render, redirect
 from .models import UserFeedback, RegisteredOrg
 
 def feedback_page(request, pk):
-
   org = RegisteredOrg.objects.get(id=pk)
   if request.method == 'POST':
+    feedback_type_val = request.POST.get('feedback_type')
+
+    feedback_type_inp, created = FeedbackType.objects.get_or_create(name=feedback_type_val)
+    # feedback_type_inp = FeedbackType.objects.get(name=feedback_type_sval) #only if the feedback types are already typed in
+
 
     feedback = UserFeedback.objects.create(
       organization= org,
       user_email = request.POST.get('user_email'),
-      feedback_type = request.POST.get('feedback_type'),
+      feedback_type = feedback_type_inp,
       user_feedback = request.POST.get('user_feedback'),
       user_ratings =request.POST.get('user_ratings')
     )

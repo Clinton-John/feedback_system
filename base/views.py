@@ -2,10 +2,9 @@ from django.shortcuts import render, redirect
 from . forms import MyUserCreationForm, OrgForm, ProfileForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .models import RegisteredOrg, User,Profile, UserFeedback
+from .models import RegisteredOrg, User,Profile, UserFeedback, FeedbackType
 from .auth import authenticate_org
 from django.db.models import Q
-
 
 #### ------- Home, Login, Logout, Signup------  ####
 def home(request):
@@ -79,14 +78,18 @@ def login_admin(request):
     if request.method == 'POST':
         email = request.POST.get('org_email')
         password = request.POST.get('org_password')
-
         try:
-            org = RegisteredOrg.objects.get(org_email=email)
+            organization = RegisteredOrg.objects.get(org_email=email)
+            org = authenticate_org(email=email, password=password)
+
+            # if request.user.email in organization.org_admins:
+            #     org = authenticate_org(email=email, password=password)
+            # else:
+            #     org = None
         except:
-            messages.error(request, 'No Organization registered using the email')
-        
+            messages.error(request, 'There Was an Error trying to access the admins page')
+            org = None
         ## the authenticate is designed to work only with the user model and cant work with a different
-        org = authenticate_org(email=email, password=password)
         
         #in the below line, there will also be an option to check if the request.user is in org.org_admins
         if org is not None :
@@ -94,28 +97,27 @@ def login_admin(request):
 
             return redirect('admins_page', pk=org.id)
         else:
-            messages.error(request, 'There Was an Error during Login')
+            messages.error(request, 'There Was an Error trying to access the admins page')
     context = {'page':page}
 
 
     return render(request, 'base/login_ad_register.html', context)
 
 def admins_page(request, pk):
-    feedback_list = ['complaint', 'suggestion','praise', 'question']
+    feedback_categories = FeedbackType.objects.all()
     organization = RegisteredOrg.objects.get(id=pk)
 
     # implementing functionality to return the feedbacks based on the feedbck type
-    # q = request.GET.get('q') if request.GET.get('q') != None else ''
-    q = request.GET.get('q', '').strip().replace('%', '')
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
 
-    print(q)
-    org_feedbacks = UserFeedback.objects.filter(organization=organization,feedback_type__icontains=q)
+    org_feedbacks = UserFeedback.objects.filter(feedback_type__name__contains=q)
+    # org_feedbacks = UserFeedback.objects.filter(organization=organization) # only for all of the feedbacks
         
     # org_feedbacks = organization.userfeedback_set.all()
     if not request.user.is_authenticated:
         return redirect('home')
     
-    context = {'organization':organization, 'org_feedbacks':org_feedbacks, 'feedback_list':feedback_list}
+    context = {'organization':organization, 'org_feedbacks':org_feedbacks, 'feedback_categories':feedback_categories}
     return render(request, 'base/admins.html', context)
 
 

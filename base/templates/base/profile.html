@@ -1,6 +1,7 @@
 {% extends 'index.html' %}{% block content %} {% if page == 'user_profile' %}
 
 <div class="user_profile">
+    <h1><a href="{% url 'home' %}">Home</a></h1>
 
     <h2>{{user.username}}</h2>
     <p>{{user.email}}</p>
