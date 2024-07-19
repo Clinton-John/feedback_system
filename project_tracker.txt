@@ -39,3 +39,6 @@ switching to creating a model for the feedback type and relating it to the feedb
 
 only admins of an organization can login to it 
 
+generate the qr code specific to an organization --- done
+
+add functionality to view, and download the generated qr code

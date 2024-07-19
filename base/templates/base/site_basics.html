@@ -1,0 +1,10 @@
+{% extends 'index.html' %} {% block content %} {% if page == 'appreciation_page' %}
+<div class="appreciation_page">
+    <h1>Appreciation Page</h1>
+    <p>Thank You for giving us your feedback on our services. We hope to make our organization a better place through your feedbacks</p>
+</div>
+{% elif page == 'organization_qrcode' %}
+<div class="organization_qrcode">
+    {{org.org_qr_code}}
+</div>
+{% endif %} {% endblock %}

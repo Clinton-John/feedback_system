@@ -12,7 +12,6 @@ path('logout/', views.logout_user, name='logout'),
 
 # ------------- USER APRECIATION ----###
 path('appreciation_page/', views.appreciation_page, name='appreciation_page'),
-path('org_settings/<str:pk>', views_admin.org_settings, name='org_settings'),
 
 
 # ------------- USER PROFILE SECTION ----###
@@ -36,6 +35,12 @@ path('delete_admin/<str:pk>/', views_admin.delete_admin, name="delete_admin"),
 # ------------ FEEDBACK SECTION ----- ###
 path('user_feedack/<str:pk>/', views_admin.feedback_page, name="user_feedback"),
 path('individual_feedback/<str:pk>/', views_admin.individual_feedback, name="individual_feedback"),
+
+
+# ------------ Organization settings section ----- ###
+path('generate_code/<str:pk>/', views_admin.generate_qr_code, name="generate_qr_code"),
+path('org_settings/<str:pk>', views_admin.org_settings, name='org_settings'),
+path('get_org_code/<str:pk>', views_admin.get_org_code, name='get_org_code'),
 
 
 

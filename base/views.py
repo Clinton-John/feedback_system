@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from .models import RegisteredOrg, User,Profile, UserFeedback, FeedbackType
 from .auth import authenticate_org
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
 #### ------- Home, Login, Logout, Signup------  ####
 def home(request):
@@ -143,4 +144,6 @@ def update_profile(request, pk):
     return render(request, 'base/update_form.html', context)
 
 def appreciation_page(request):
-    return render(request, 'base/appreciation.html')
+    page = 'appreciation_page'
+    context = {'page':page}
+    return render(request, 'base/site_basics.html', context)

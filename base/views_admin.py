@@ -1,12 +1,3 @@
-'''
-views_admin
-  --> generate qrcode /  generate new qrcode
-  --> add company questions
-  --> add administrators -- Done
-  --> upgrade administrators // not included
-  --> remove administrators --Done
-  --> get stored qr code
-'''
 
 from .models import RegisteredOrg, User, UserFeedback, FeedbackType
 from django.contrib import messages
@@ -14,6 +5,14 @@ from .forms import OrgForm, UpdateOrgForm
 
 from django.shortcuts import render, redirect
 from .models import UserFeedback, RegisteredOrg
+from django.contrib.auth.decorators import login_required
+
+from django.urls import reverse
+import qrcode
+import os
+from django.conf import settings
+from django.core.files import File
+
 
 def feedback_page(request, pk):
   org = RegisteredOrg.objects.get(id=pk)
@@ -119,5 +118,36 @@ def individual_feedback(request, pk):
   context = {'individual_feedback':individual_feedback}
   return render(request, 'base/feedback.html', context)
 
+def generate_qr_code(request, pk):
+  organization = RegisteredOrg.objects.get(id=pk)
+  org_url = request.build_absolute_uri(reverse('user_feedback', args=[pk]))
 
+  qr = qrcode.QRCode(
+    version = 1,
+    error_correction=qrcode.constants.ERROR_CORRECT_L,
+    box_size=10,
+    border=4,
+  )
+  qr.add_data(org_url)
+  qr.make(fit=True)
 
+  org_qr_img = qr.make_image(fill='black', back_color='white')
+  img_filename = f'{organization.org_name}_qr.png'
+  img_path = os.path.join(settings.MEDIA_ROOT, img_filename)
+  org_qr_img.save(img_path, 'PNG')
+
+  with open(img_path, 'rb') as img_file:
+    organization.org_qr_code.save(img_filename,File(img_file), save=True)
+
+  if os.path.exists(img_path):
+    os.remove(img_path)
+
+  messages.success(request,'QR code successfully generated')
+
+  return redirect('org_settings', organization.id)
+
+def get_org_code(request, pk):
+  page = 'org_qrcode'
+  org = RegisteredOrg.objects.get(id=pk)
+  context = {'page':page, 'org':org}
+  return render(request, 'base/site_basics.html', context)
