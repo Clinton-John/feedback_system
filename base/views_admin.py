@@ -12,6 +12,7 @@ import qrcode
 import os
 from django.conf import settings
 from django.core.files import File
+from django.core.files.base import ContentFile
 
 
 def feedback_page(request, pk):
@@ -136,8 +137,13 @@ def generate_qr_code(request, pk):
   img_path = os.path.join(settings.MEDIA_ROOT, img_filename)
   org_qr_img.save(img_path, 'PNG')
 
-  with open(img_path, 'rb') as img_file:
-    organization.org_qr_code.save(img_filename,File(img_file), save=True)
+  with open(img_path, 'wb') as img_file:
+    org_qr_img.save(img_file, 'PNG')
+
+    # organization.org_qr_code.save(img_filename,File(img_file), save=True)
+    # Save the image path to the database
+  organization.org_qr_code.save(img_filename, ContentFile(open(img_path, 'rb').read()), save=True)
+
 
   if os.path.exists(img_path):
     os.remove(img_path)

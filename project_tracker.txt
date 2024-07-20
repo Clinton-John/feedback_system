@@ -42,3 +42,4 @@ only admins of an organization can login to it
 generate the qr code specific to an organization --- done
 
 add functionality to view, and download the generated qr code
+for the qrcodes, they will be stored in the static folder and then the path added to the organizations database
