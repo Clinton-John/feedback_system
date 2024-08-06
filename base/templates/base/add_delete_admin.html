@@ -11,8 +11,9 @@
     </form>
 </div>
 
-{% else %}
+{% elif page == 'delete_admin' %}
 <div class="delete_administrator">
+    <h1><a href="{{request.META.HTTP_REFERER}}">Back</a></h1>
     <h1>Delete Administrator</h1>
     <form action="" method="POST">
         {% csrf_token %}
@@ -26,5 +27,6 @@
 <div class="display_errors">
     {% if messages %} {% for message in messages %}
     <p>{{message}}</p>
+    {% endfor %} {% endif %}
 </div>
-{% endfor %} {% endif %} {% endblock %}
+{% endblock %}

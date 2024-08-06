@@ -10,6 +10,7 @@
 </div>
 {% elif page == 'update_org_profile' %}
 <div class="org_form">
+    <h1><a href="{{request.META.HTTP_REFERER}}">Back</a></h1>
     <h1>Update Org Profile</h1>
     <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %} {{form.as_p}}

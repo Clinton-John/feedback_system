@@ -78,9 +78,14 @@ def delete_admin(request, pk):
       return redirect('delete_admin', pk=organization.id)
     
     if user in organization.org_admins.all():
-      organization.org_admins.remove(user)
-      messages.success(request, f"{user_email} has been successfully removed from the organizations admins")
-      return redirect('admins_page', pk=organization.id)
+      try:
+        organization.org_admins.remove(user)
+        messages.success(request, f"{user_email} has been successfully removed from the organizations admins")
+        return redirect('admins_page', pk=organization.id)
+      except Exception as e:
+        messages.error("Couldnt find the user in registered Administrators")
+        return redirect('delete_admin', pk=organization.id)
+      
 
   context = {'page':page}
   return render(request, 'base/add_delete_admin.html', context)

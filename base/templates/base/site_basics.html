@@ -5,6 +5,8 @@
 </div>
 {% elif page == 'org_qrcode' %}
 <div class="org_qrcode">
+    <h2><a href="{{request.META.HTTP_REFERER}}">Back</a></h2>
+
     <h1>{{org.org_name}} QR code</h1>
     <!-- <img src="{{org.org_qrcode}}" alt="QR code" width="200" height/> -->
     <img src="{{org.org_qr_code.url}}" alt="Organization QR Code">

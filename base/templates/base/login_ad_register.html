@@ -1,6 +1,7 @@
 {% extends 'index.html' %} {% block content %} {% if page == 'login_admin' %}
-<h1>Admins Login Form</h1>
 
+<h1><a href="{% url 'home' %}">Home</a></h1>
+<h1>Admins Login Form</h1>
 <form action="" method="POST">
     {% csrf_token %}
 

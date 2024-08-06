@@ -21,7 +21,10 @@
     <!-- <img src="{{org.org_avatar}}" alt=""> -->
 
     <hr>
-    <h2>The available admins for Kabarak University are : </h2>
+    <h2><a href="{% url 'get_org_code' org.id %}">Check QRCode</a></h2>
+
+
+    <h2>The available admins for {{org.org_name}} are : </h2>
     {% for admin in org.org_admins.all %}
     <ul>
         <li>
@@ -29,6 +32,6 @@
         </li>
     </ul>
     {% endfor %}
-    <h2><a href="{% url 'update_profile' org.id %}">Update Profile</a></h2>
+    <h2><a href="{% url 'update_org_profile' org.id %}">Update Profile</a></h2>
 </div>
 {% endif %} {% endblock %}

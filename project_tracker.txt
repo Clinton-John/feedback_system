@@ -5,7 +5,7 @@ when clicking an organization field then the field also has an id which needs to
 in the views when handling the login into a website, retreive the organization based on the inserted email and then using the email get the organization id and pass it together with the link to the organization. --DONE  
 
 -->> Next Ensure that the users who logs into the organization insterts both their email and the organizations email to confirm if they are registered to the organization or not
--->> add the user who is logged in to the website and display their profile. that is the admin who is inside the admins dashbord and accessing the information
+-->> add the user who is logged in to the website and display their profile. that is the admin who is inside the admins dashboard and accessing the information
 
 -->> out of all of the administrators, the user with the name admin is the only one allowed to delete the administrators and add the administrators to the specific organization. the other administrators can only view and reply to the feedback sent by stakeholders and customers. 
 
