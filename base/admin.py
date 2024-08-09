@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import User, RegisteredOrg, UserFeedback, FeedbackType
+from .models import User, RegisteredOrg, UserFeedback, FeedbackType, Profile
 # Register your models here.
 # admin.site.register(User)
 
 admin.site.register(RegisteredOrg)
+admin.site.register(Profile)
 admin.site.register(UserFeedback)
 admin.site.register(FeedbackType)
 

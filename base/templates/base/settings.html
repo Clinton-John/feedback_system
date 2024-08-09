@@ -10,14 +10,14 @@
     <h2><a href="{% url 'delete_admin' org.id %}">Delete Administrator</a></h2>
     <!-- when was the service offered to you/ when did you acquire the product -->
 
-    {% if org.org_qr_code %}
 
-    <h2><a href="{% url 'get_org_code' org.id %}">Check QRCode</a></h2>
-    {% endif %}
     <h2><a href="{% url 'user_feedback' org.id %}">Check on the form</a></h2>
-    <h2><a href="{% url 'generate_qr_code' org.id %}">Generate QR Code</a></h2>
+    {% if org.org_qr_code %}
+    <h2><a href="{% url 'get_org_code' org.id %}">Check QRCode</a></h2>
 
-    {% if messages %} {% for message in messages %}
+    {% else %}
+    <h2><a href="{% url 'generate_qr_code' org.id %}">Generate QR Code</a></h2>
+    {% endif %} {% if messages %} {% for message in messages %}
     <p>{{message}}</p>
     {% endfor %} {% endif %}
 </div>

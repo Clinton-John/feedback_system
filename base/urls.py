@@ -41,6 +41,7 @@ path('individual_feedback/<str:pk>/', views_admin.individual_feedback, name="ind
 path('generate_code/<str:pk>/', views_admin.generate_qr_code, name="generate_qr_code"),
 path('org_settings/<str:pk>', views_admin.org_settings, name='org_settings'),
 path('get_org_code/<str:pk>', views_admin.get_org_code, name='get_org_code'),
+path('download_qrcode/<str:pk>', views_admin.download_qrcode, name='download_qrcode'),
 
 
 

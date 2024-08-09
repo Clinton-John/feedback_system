@@ -43,3 +43,6 @@ generate the qr code specific to an organization --- done
 
 add functionality to view, and download the generated qr code
 for the qrcodes, they will be stored in the static folder and then the path added to the organizations database
+
+check person trying to log in to the organizations page
+super admin must login

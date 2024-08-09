@@ -14,6 +14,8 @@ from django.conf import settings
 from django.core.files import File
 from django.core.files.base import ContentFile
 
+from django.http import FileResponse
+
 
 def feedback_page(request, pk):
   org = RegisteredOrg.objects.get(id=pk)
@@ -162,3 +164,17 @@ def get_org_code(request, pk):
   org = RegisteredOrg.objects.get(id=pk)
   context = {'page':page, 'org':org}
   return render(request, 'base/site_basics.html', context)
+
+def download_qrcode(request, pk):
+  org = RegisteredOrg.objects.get(id=pk)
+  organization_image = org.org_qr_code
+
+  if organization_image:
+    file_path = organization_image.path
+    try:
+      return FileResponse(open(file_path, 'rb'), as_attachment=True, filename=f'{org.org_name}_qrcode.png')
+    except FileNotFoundError:
+      messages.error("The Image doesnt exist")
+
+    else:
+      messages.error("The above organization doesnt have a QR code")

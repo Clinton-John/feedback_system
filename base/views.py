@@ -57,6 +57,7 @@ def logout_user(request):
 
 
 #### ------- Register Company ------  ####
+@login_required(login_url='login')
 def register_company(request):
     page = 'register-company'
     form = OrgForm()
@@ -65,6 +66,8 @@ def register_company(request):
         if form.is_valid():
             org_form = form.save(commit=False)
             org_form.super_admin = request.user
+            # user = User.objects.get(email = user_email)
+            # org_form.org_admins.add(request.user)
 
             org_form.save()
             org_form.org_admins.add(request.user)
@@ -74,8 +77,10 @@ def register_company(request):
     context = {'form':form, 'page':page}
     return render(request, 'base/login_ad_register.html', context)
 
+@login_required(login_url='login')
 def login_admin(request):
     page = 'login_admin'
+    user = request.user
     if request.method == 'POST':
         email = request.POST.get('org_email')
         password = request.POST.get('org_password')
@@ -83,7 +88,7 @@ def login_admin(request):
             organization = RegisteredOrg.objects.get(org_email=email)
             org = authenticate_org(email=email, password=password)
 
-            # if request.user.email in organization.org_admins:
+            # if request.user.email in organization.org_admins or request.user == organization.super_admin:
             #     org = authenticate_org(email=email, password=password)
             # else:
             #     org = None
@@ -94,26 +99,31 @@ def login_admin(request):
         
         #in the below line, there will also be an option to check if the request.user is in org.org_admins
         if org is not None :
-            # access the organization id which will be passed together with the link in the redirect for a specifc page
-
+           
             return redirect('admins_page', pk=org.id)
-        else:
-            messages.error(request, 'There Was an Error trying to access the admins page')
+        # else:
+        #     messages.error(request, 'There Was an Error trying to access the admins page')
     context = {'page':page}
 
 
     return render(request, 'base/login_ad_register.html', context)
 
+
+@login_required(login_url='login')
 def admins_page(request, pk):
     feedback_categories = FeedbackType.objects.all()
     organization = RegisteredOrg.objects.get(id=pk)
 
     # implementing functionality to return the feedbacks based on the feedbck type
-    q = request.GET.get('q') if request.GET.get('q') != None else ''
 
-    org_feedbacks = UserFeedback.objects.filter(feedback_type__name__contains=q)
-    # org_feedbacks = UserFeedback.objects.filter(organization=organization) # only for all of the feedbacks
-        
+    q = request.GET.get('q', '')  # Get the query parameter 'q' or use an empty string if not provided
+
+    # Filter feedbacks by the organization and the feedback type
+    org_feedbacks = UserFeedback.objects.filter(
+        organization=organization,
+        feedback_type__name__icontains=q  # Use __icontains for case-insensitive matching
+    )
+
     # org_feedbacks = organization.userfeedback_set.all()
     if not request.user.is_authenticated:
         return redirect('home')
@@ -121,7 +131,7 @@ def admins_page(request, pk):
     context = {'organization':organization, 'org_feedbacks':org_feedbacks, 'feedback_categories':feedback_categories}
     return render(request, 'base/admins.html', context)
 
-
+@login_required(login_url='login')
 def user_profile(request, pk):
     page = 'user_profile'
     user = User.objects.get(id=pk)
@@ -130,18 +140,21 @@ def user_profile(request, pk):
     context = {'form':form, 'user':user, 'page':page}
     return render(request, 'base/profile.html', context)
 
+@login_required(login_url='login')
 def update_profile(request, pk):
     page = 'update_user_profile'
     user = request.user
-    form = ProfileForm(instance=user)
+    profile = user.profile
+    form = ProfileForm(instance=profile)
     if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=user)
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
 
         if form.is_valid():
             form.save()
             return redirect('user_profile', pk=user.id)
     context = {'form':form, 'page':page}
     return render(request, 'base/update_form.html', context)
+
 
 def appreciation_page(request):
     page = 'appreciation_page'
