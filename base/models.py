@@ -15,19 +15,36 @@ class Profile(models.Model):
     def  __str__(self):
         return self.username
 
-
 class RegisteredOrg(models.Model):
     org_name = models.CharField(null=True, max_length=100)
     org_email = models.EmailField(null=True, max_length=100)
     org_qr_code = models.ImageField(null=True, blank=True)
+    org_avatar = models.ImageField(null=True , blank=True)
+
     org_descr = models.TextField(null=True)
     super_admin =  models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, related_name='super_admin_organizations')
     org_admins = models.ManyToManyField(User, related_name='admin_organizations')
     org_password = models.CharField(max_length=128, null=True)
-    org_avatar = models.ImageField(null=True , blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     
+    def __str__(self):
+        return self.org_name
+
+# The profile contains the customer care information that will be added to the  scanned page
+class OrgProfile(models.Model):
+    org_name = models.OneToOneField(RegisteredOrg, on_delete=models.CASCADE)
+    contact_email = models.EmailField(null=True, blank=True)
+    contact_phone = models.CharField(max_length=20, null=True, blank=True)
+    org_address = models.TextField(null=True, blank=True)
+    org_description = models.TextField(null=True, blank=True)
+    org_descr = models.TextField(null=True)
+    org_logo = models.ImageField(null=True, blank=True)
+    org_website = models.URLField(null=True, blank=True)
+    org_facebook = models.URLField(null=True, blank=True)
+    org_twitter = models.URLField(null=True, blank=True)
+    org_instagram = models.URLField(null=True, blank=True)
+
     def __str__(self):
         return self.org_name
 
@@ -37,8 +54,6 @@ class FeedbackType(models.Model):
 
     def __str__(self) :
         return self.name
-
-
 
 class UserFeedback(models.Model):
     organization = models.ForeignKey(RegisteredOrg, on_delete=models.CASCADE, null=True)
