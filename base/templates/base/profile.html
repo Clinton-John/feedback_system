@@ -26,8 +26,9 @@
     <p>{{org.org_descr}}</p>
     <!-- <img src="{{org.org_avatar}}" alt=""> -->
 
-    <hr>
+    <hr> {% if org.org_qr_code %}
     <h2><a href="{% url 'get_org_code' org.id %}">Check QRCode</a></h2>
+    {% endif %}
 
 
     <h2>The available admins for {{org.org_name}} are : </h2>

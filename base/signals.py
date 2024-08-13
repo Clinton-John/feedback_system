@@ -16,9 +16,9 @@ def createProfile(sender, instance, created, **kwargs):
 def createOrgProfile(sender, instance, created, **kwargs):
     if created:
         registered_org = instance
-        profile = OrgProfile.objects.create(
-            org_name = registered_org.org_name,
-            org_description = registered_org.org_descr,
+        orgprofile = OrgProfile.objects.create(
+            org_name = registered_org,
+            org_descr = registered_org.org_descr,
             org_logo = registered_org.org_avatar
         )
 

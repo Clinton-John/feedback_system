@@ -20,7 +20,6 @@ class RegisteredOrg(models.Model):
     org_email = models.EmailField(null=True, max_length=100)
     org_qr_code = models.ImageField(null=True, blank=True)
     org_avatar = models.ImageField(null=True , blank=True)
-
     org_descr = models.TextField(null=True)
     super_admin =  models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, related_name='super_admin_organizations')
     org_admins = models.ManyToManyField(User, related_name='admin_organizations')
@@ -37,7 +36,7 @@ class OrgProfile(models.Model):
     contact_email = models.EmailField(null=True, blank=True)
     contact_phone = models.CharField(max_length=20, null=True, blank=True)
     org_address = models.TextField(null=True, blank=True)
-    org_description = models.TextField(null=True, blank=True)
+    # org_description = models.TextField(null=True, blank=True)
     org_descr = models.TextField(null=True)
     org_logo = models.ImageField(null=True, blank=True)
     org_website = models.URLField(null=True, blank=True)
@@ -46,7 +45,7 @@ class OrgProfile(models.Model):
     org_instagram = models.URLField(null=True, blank=True)
 
     def __str__(self):
-        return self.org_name
+        return self.org_name.org_name
 
 ## v 1.0
 class FeedbackType(models.Model):

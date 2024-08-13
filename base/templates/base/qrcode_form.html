@@ -1,4 +1,8 @@
-{% extends 'index.html' %} {% block content %}
+{% extends 'index.html' %} {% block content %} {% if org_profile.org_logo %}
+<a href="{% url 'home' %}">
+    <img src="{{org_profile.org_logo.url}}" alt="">
+</a>
+{% endif %}
 <h1>Welcome to {{org.org_name}} user feedback page</h1>
 <p>Please Select the Feedback type based on the categories and enter your feedback. The Other fields in the form are optional</p>
 <form action="" method="POST">
@@ -38,14 +42,24 @@
 <hr>
 <div class="contact_us">
     <p>For Futher Communication, Contact our Organization through the following channels</p>
+    <p>{{org_profile.contact_email}}</p>
     <h3>
-        <a href="">Email</a>
+        <a href="mailto:{{org_profile.contact_email}}">Email</a>
     </h3>
     <h3>
-        <a href="">Phone</a>
+        <a href="">{{org_profile.org_contact}}</a>
     </h3>
     <h3>
-        <a href="">Facebook</a>
+        <a href="{{org_profile.org_facebook}}">Facebook</a>
+    </h3>
+    <h3>
+        <a href="{{org_profile.org_twitter}}">X</a>
+    </h3>
+    <h3>
+        <a href="{{org_profile.org_instagram}}">Facebook</a>
+    </h3>
+    <h3>
+        <a href="{{org_profile.org_website}}">Visit our webpage</a>
     </h3>
 
 

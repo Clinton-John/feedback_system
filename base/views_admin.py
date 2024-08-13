@@ -1,10 +1,10 @@
 
 from .models import RegisteredOrg, User, UserFeedback, FeedbackType
 from django.contrib import messages
-from .forms import OrgForm, UpdateOrgForm
+from .forms import OrgForm, UpdateOrgForm, OrgUpdateForm
 
 from django.shortcuts import render, redirect
-from .models import UserFeedback, RegisteredOrg
+from .models import UserFeedback, RegisteredOrg, OrgProfile
 from django.contrib.auth.decorators import login_required
 
 from django.urls import reverse
@@ -19,6 +19,7 @@ from django.http import FileResponse
 
 def feedback_page(request, pk):
   org = RegisteredOrg.objects.get(id=pk)
+  org_profile = OrgProfile.objects.get(id=pk)
   if request.method == 'POST':
     feedback_type_val = request.POST.get('feedback_type')
 
@@ -35,7 +36,7 @@ def feedback_page(request, pk):
     )
     return redirect('appreciation_page')
 
-  context = {'org':org}
+  context = {'org':org, 'org_profile':org_profile}
 
 
   return render(request, 'base/qrcode_form.html', context)
@@ -101,10 +102,27 @@ def org_profile(request, pk):
 def update_org_profile(request, pk):
   page = 'update_org_profile'
   org = RegisteredOrg.objects.get(id=pk)
-  form = UpdateOrgForm(instance=org)
+  org_profile = OrgProfile.objects.get(id=pk)
+  # form = UpdateOrgForm(instance=org)
+  form = OrgUpdateForm(instance=org_profile)
+  # form = OrgUpdateForm(instance=org_profile)
 
   if request.method == 'POST':
-    org.org_name = request.POST.get('org_name')
+    # org.org_name = request.POST.get('org_name')
+    #update the profile form
+    org_profile.contact_email = request.POST.get('contact_email')
+    org_profile.contact_phone = request.POST.get('contact_phone')
+    org_profile.org_address = request.POST.get('org_address')
+    org_profile.org_descr = request.POST.get('org_descr')
+    org_profile.org_logo = request.FILES.get('org_logo')
+    org_profile.org_website = request.POST.get('org_website')
+    org_profile.org_facebook = request.POST.get('org_facebook')
+    org_profile.org_twitter = request.POST.get('org_twitter')
+    org_profile.org_instagram = request.POST.get('org_instagram')
+
+    org_profile.save()
+
+    #update the original created profile
     org.org_descr = request.POST.get('org_descr')
     org.org_avatar = request.FILES.get('org_avatar')
     org.save()

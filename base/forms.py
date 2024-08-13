@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, RegisteredOrg, UserFeedback, Profile
+from .models import User, RegisteredOrg, UserFeedback, Profile, OrgProfile
 from django.forms import ModelForm
 
 
@@ -19,6 +19,13 @@ class UpdateOrgForm(ModelForm):
     class Meta:
         model = RegisteredOrg
         fields = ['org_name', 'org_avatar' ,'org_descr']
+
+
+class OrgUpdateForm(ModelForm):
+    class Meta:
+        model = OrgProfile
+        fields = '__all__'
+        exclude = ['org_name']
 
 
 class ProfileForm(ModelForm):

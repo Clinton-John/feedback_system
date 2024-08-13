@@ -1,5 +1,7 @@
 {% extends 'index.html' %}{% block content %} {% if page == 'add_admin' %}
 <div class="add_administrator">
+    <h1><a href="{{request.META.HTTP_REFERER}}">Back</a></h1>
+
     <h1>Add New Administrator</h1>
     <form action="" method="POST">
         {% csrf_token %}
