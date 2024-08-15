@@ -1,5 +1,8 @@
-from .models import User, Profile, RegisteredOrg, OrgProfile
+from .models import User, Profile, RegisteredOrg, OrgProfile, UserFeedback
 from django.db.models.signals import post_save
+
+#sending email notification
+from django.core.mail import send_mail
 
 def createProfile(sender, instance, created, **kwargs):
     if created:
@@ -22,5 +25,23 @@ def createOrgProfile(sender, instance, created, **kwargs):
             org_logo = registered_org.org_avatar
         )
 
+
+# def receivedFeedback(sender, instance, created, **kwargs):
+#     if created:
+#         org_instance = instance
+#         subject = 'There is a New Notification'
+#         message = "There is a new message sent to your organizations feedback page"
+
+#         send_mail(
+#         subject,
+#         message,
+#         settings.EMAIL_HOST_USER, #from
+#         [org_instace.submited_to], #to
+#         fail_silently=False,
+#     )
+
+
+
+# post_save.connect(receivedFeedback, sender=UserFeedback)
 post_save.connect(createProfile, sender=User)
 post_save.connect(createOrgProfile, sender=RegisteredOrg)

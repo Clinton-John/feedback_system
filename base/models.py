@@ -63,6 +63,7 @@ class UserFeedback(models.Model):
 
     user_feedback = models.TextField()
     user_ratings = models.IntegerField(null=True, blank=True)
+    submited_to = models.EmailField(max_length=100, null=True, blank=True)
     submit_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

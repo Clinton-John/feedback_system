@@ -46,3 +46,7 @@ for the qrcodes, they will be stored in the static folder and then the path adde
 
 check person trying to log in to the organizations page
 super admin must login
+
+
+                        SENDING EMAILS WHEN A NEW FEEDBACK IS SENT TO AN ORGANIZATION  
+add the submited_to email section in all of the submitted user forms and auto embedd it in every submited feedback to make it easier and allow sending of email to the responsible organization

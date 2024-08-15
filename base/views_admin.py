@@ -32,6 +32,7 @@ def feedback_page(request, pk):
       user_email = request.POST.get('user_email'),
       feedback_type = feedback_type_inp,
       user_feedback = request.POST.get('user_feedback'),
+      submited_to = org.org_email,
       user_ratings =request.POST.get('user_ratings')
     )
     return redirect('appreciation_page')
