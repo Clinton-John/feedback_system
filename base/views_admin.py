@@ -1,3 +1,4 @@
+from django.conf import settings
 
 from .models import RegisteredOrg, User, UserFeedback, FeedbackType
 from django.contrib import messages
@@ -10,7 +11,6 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 import qrcode
 import os
-from django.conf import settings
 from django.core.files import File
 from django.core.files.base import ContentFile
 
@@ -197,3 +197,5 @@ def download_qrcode(request, pk):
 
     else:
       messages.error("The above organization doesnt have a QR code")
+
+
