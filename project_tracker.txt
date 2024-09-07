@@ -50,3 +50,9 @@ super admin must login
 
                         SENDING EMAILS WHEN A NEW FEEDBACK IS SENT TO AN ORGANIZATION  
 add the submited_to email section in all of the submitted user forms and auto embedd it in every submited feedback to make it easier and allow sending of email to the responsible organization
+
+send email to show there is a received feedback -- Done
+send email whenever there is a newly added organization -- Done
+send email whenever a user creates an account, -- Done
+send email whenever a user is added as an admin -- Done
+send email whenever there is a log in to the organization -- Later

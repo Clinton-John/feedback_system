@@ -16,6 +16,8 @@ from django.core.files.base import ContentFile
 
 from django.http import FileResponse
 
+from .signals import admin_added
+
 
 def feedback_page(request, pk):
   org = RegisteredOrg.objects.get(id=pk)
@@ -59,6 +61,9 @@ def add_admin(request, pk):
       user = User.objects.get(email = user_email)
       r_organization.org_admins.add(user)
       messages.success(request,f"{user.username} Successfully added as an administrator to {r_organization.org_name}")
+
+      admin_added.send(sender=r_organization, user=user, organization=r_organization)
+
 
       return redirect('admins_page', pk=r_organization.id)
     else:
