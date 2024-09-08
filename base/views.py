@@ -155,6 +155,14 @@ def update_profile(request, pk):
     context = {'form':form, 'page':page}
     return render(request, 'base/update_form.html', context)
 
+def delete_profile(request, pk):
+    user = User.objects.get(id=pk)
+
+    if request.method == 'POST':
+        user.delete()
+        return  redirect('home')
+    context = {'obj':user}
+    return render(request, 'base/delete.html', context)
 
 def appreciation_page(request):
     page = 'appreciation_page'

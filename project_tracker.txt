@@ -56,3 +56,11 @@ send email whenever there is a newly added organization -- Done
 send email whenever a user creates an account, -- Done
 send email whenever a user is added as an admin -- Done
 send email whenever there is a log in to the organization -- Later
+
+
+delete feedback, delete organization account, delete user account
+DELETE ORGANIZATION  -- Done
+delete user_account -- Done
+delete feedback -- Done
+
+delete in feedback page shouldnt redirect to home but it should be to the organizational admins page

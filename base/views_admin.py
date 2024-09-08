@@ -16,7 +16,7 @@ from django.core.files.base import ContentFile
 
 from django.http import FileResponse
 
-from .signals import admin_added
+# from .signals import admin_added
 
 
 def feedback_page(request, pk):
@@ -144,11 +144,37 @@ def org_settings(request, pk):
   context = {'org':org}
   return render(request, 'base/settings.html', context)
 
+def delete_org(request, pk):
+  organization = RegisteredOrg.objects.get(id=pk)
+
+  if request.user != organization.super_admin:
+    messages.error("You cant Update the room !!!")
+
+  if request.method == 'POST':
+    organization.delete()
+    return  redirect('home')
+  
+  context = {'obj':organization}
+  return render(request, 'base/delete.html', context)
+  
 
 def individual_feedback(request, pk):
   individual_feedback = UserFeedback.objects.get(id=pk)
   context = {'individual_feedback':individual_feedback}
   return render(request, 'base/feedback.html', context)
+
+def delete_feedback(request, pk):
+  feedback = UserFeedback.objects.get(id=pk)
+
+  # if request.user not in organization.org_admins.all():
+  #   messages.error("You cant Delete the Feedback !!!")
+
+  if request.method == 'POST':
+    feedback.delete()
+    return  redirect('home')
+  
+  context = {'obj':feedback}
+  return render(request, 'base/delete.html', context)
 
 def generate_qr_code(request, pk):
   organization = RegisteredOrg.objects.get(id=pk)

@@ -43,6 +43,12 @@ path('org_settings/<str:pk>', views_admin.org_settings, name='org_settings'),
 path('get_org_code/<str:pk>', views_admin.get_org_code, name='get_org_code'),
 path('download_qrcode/<str:pk>', views_admin.download_qrcode, name='download_qrcode'),
 
+# ------------ Delete Section ----- ###
+path('delete_org/<str:pk>', views_admin.delete_org, name='delete_org'),
+path('delete_profile/<str:pk>', views.delete_profile, name='delete_profile'),
+path('delete_feedback/<str:pk>', views_admin.delete_feedback, name='delete_feedback'),
+
+
 
 
 

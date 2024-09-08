@@ -1,3 +1,5 @@
+## All The Email sending functionality are turned off for now but when connected to the net should be integrated to work properly
+
 from django.conf import settings
 from .models import User, Profile, RegisteredOrg, OrgProfile, UserFeedback
 from django.db.models.signals import post_save
@@ -9,20 +11,20 @@ from django.core.mail import send_mail
 from django.dispatch import Signal
 from django.dispatch import receiver
 
-admin_added = Signal()
+# admin_added = Signal()
 
-@receiver(admin_added)
-def notify_new_admin(sender, user, organization, **kwargs):
-    # Send an email to the new admin
-    subject = "You have been added as an Administrator"
-    message = f"Hello {user.username},\n\nYou have been added as an administrator to {organization.org_name}.\n\nBest regards,\nThe Team"
-    send_mail(
-        subject,
-        message,
-        settings.EMAIL_HOST_USER,
-        [user.email],
-        fail_silently=False,
-    )
+# @receiver(admin_added)
+# def notify_new_admin(sender, user, organization, **kwargs):
+#     # Send an email to the new admin
+#     subject = "You have been added as an Administrator"
+#     message = f"Hello {user.username},\n\nYou have been added as an administrator to {organization.org_name}.\n\nBest regards,\nThe Team"
+#     send_mail(
+#         subject,
+#         message,
+#         settings.EMAIL_HOST_USER,
+#         [user.email],
+#         fail_silently=False,
+#     )
 
 
 # when a user registers, it creates a profile and sends the email to the user notifying about their account
@@ -38,16 +40,16 @@ def createProfile(sender, instance, created, **kwargs):
         )
 
         ## Account Creation and sending emails
-        subject = "Account Creation"
-        message = f"Hello {user.username}, Your Feedlify acooutn has been successfully created."
+        # subject = "Account Creation"
+        # message = f"Hello {user.username}, Your Feedlify acooutn has been successfully created."
 
-        send_mail(
-            subject,
-            message,
-            settings.EMAIL_HOST_USER,
-            [user.email],
-            fail_silently=False
-        )
+        # send_mail(
+        #     subject,
+        #     message,
+        #     settings.EMAIL_HOST_USER,
+        #     [user.email],
+        #     fail_silently=False
+        # )
 
 #when an organization is created, it also creates the profile and sends the email to the user
 def createOrgProfile(sender, instance, created, **kwargs):
@@ -59,16 +61,16 @@ def createOrgProfile(sender, instance, created, **kwargs):
             org_logo = registered_org.org_avatar
         )
 
-        subject = "Feedlify Organization Creation"
-        message = f"Welcome {registered_org.org_name} to Feedlify. We hope the feedback system helps improve your organizational perfomance"
+        # subject = "Feedlify Organization Creation"
+        # message = f"Welcome {registered_org.org_name} to Feedlify. We hope the feedback system helps improve your organizational perfomance"
 
-        send_mail(
-            subject,
-            message,
-            settings.EMAIL_HOST_USER, #from
-            [registered_org.org_email], #to
-            fail_silently= False
-        )
+        # send_mail(
+        #     subject,
+        #     message,
+        #     settings.EMAIL_HOST_USER, #from
+        #     [registered_org.org_email], #to
+        #     fail_silently= False
+        # )
 
 
 
@@ -79,13 +81,13 @@ def receivedFeedback(sender, instance, created, **kwargs):
         subject = 'There is a New Notification'
         message = "There is a new message sent to your organizations feedback page"
 
-        send_mail(
-        subject,
-        message,
-        settings.EMAIL_HOST_USER, #from
-        [org_instance.submited_to], #to
-        fail_silently=False,
-    )
+    #     send_mail(
+    #     subject,
+    #     message,
+    #     settings.EMAIL_HOST_USER, #from
+    #     [org_instance.submited_to], #to
+    #     fail_silently=False,
+    # )
 
 
 # notification of newly created feedback

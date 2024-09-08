@@ -17,7 +17,10 @@
 
     {% else %}
     <h2><a href="{% url 'generate_qr_code' org.id %}">Generate QR Code</a></h2>
-    {% endif %} {% if messages %} {% for message in messages %}
+    {% endif %}
+
+    <h2><a href="{% url 'delete_org' org.id %}">Delete Organization</a></h2>
+    {% if messages %} {% for message in messages %}
     <p>{{message}}</p>
     {% endfor %} {% endif %}
 </div>

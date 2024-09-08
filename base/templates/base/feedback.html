@@ -9,5 +9,8 @@
     {% endif %}
     <h2>Feedback Type: {{individual_feedback.feedback_type.name}}</h2>
     <p>{{individual_feedback.user_feedback}}</p>
+
+
+    <h2><a href="{% url 'delete_feedback' individual_feedback.id %}">Delete </a></h2>
 </div>
 {% endblock %}
