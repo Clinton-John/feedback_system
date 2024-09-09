@@ -134,7 +134,7 @@ def update_org_profile(request, pk):
     org.save()
     return redirect('admins_page', pk=org.id)
 
-  context = {'page':page, 'form':form}
+  context = {'page':page, 'form':form, 'org':org}
   
   return render(request, 'base/update_form.html', context)
 

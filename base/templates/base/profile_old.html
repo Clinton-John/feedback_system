@@ -1,0 +1,45 @@
+{% extends 'index.html' %}{% block content %} {% if page == 'user_profile' %}
+
+<div class="user_profile">
+    <h1><a href="{% url 'home' %}">Home</a></h1>
+
+    <h2>{{user.username}}</h2>
+    <p>{{user.email}}</p>
+    <hr> {% if user.profile.about_you %}
+    <p>{{user.profile.about_you}}</p>
+    {% else %}
+    <p>No bio available.</p>
+    {% endif %}
+    <hr>
+    <h2><a href="{% url 'update_profile' request.user.id %}">Update Profile</a></h2>
+    <hr>
+    <h2><a href="{% url 'delete_profile' request.user.id %}">Delete Profile</a></h2>
+
+
+</div>
+{% elif page == "org_profile" %}
+<div class="org_profile">
+    <h1><a href="{% url 'admins_page' org.id %}">Back</a></h1>
+
+    <h1>Organizations Profile</h1>
+    <h1>{{org.org_name}}</h1>
+    <h2>{{org.org_email}}</h2>
+    <p>{{org.org_descr}}</p>
+    <!-- <img src="{{org.org_avatar}}" alt=""> -->
+
+    <hr> {% if org.org_qr_code %}
+    <h2><a href="{% url 'get_org_code' org.id %}">Check QRCode</a></h2>
+    {% endif %}
+
+
+    <h2>The available admins for {{org.org_name}} are : </h2>
+    {% for admin in org.org_admins.all %}
+    <ul>
+        <li>
+            {{admin.username}}
+        </li>
+    </ul>
+    {% endfor %}
+    <h2><a href="{% url 'update_org_profile' org.id %}">Update Profile</a></h2>
+</div>
+{% endif %} {% endblock %}

@@ -50,7 +50,10 @@ def login_user(request):
         else:
             messages.error(request, 'Username OR password does not exit')
 
-    return render(request, 'base/signup_login.html')
+    context = {'page':page}
+
+    return render(request, 'base/signup_login.html', context)
+
 def logout_user(request):
     logout(request)
     return redirect('home')
@@ -75,7 +78,7 @@ def register_company(request):
             return redirect('home')
 
     context = {'form':form, 'page':page}
-    return render(request, 'base/login_ad_register.html', context)
+    return render(request, 'base/login_register_org.html', context)
 
 @login_required(login_url='login')
 def login_admin(request):
@@ -106,7 +109,7 @@ def login_admin(request):
     context = {'page':page}
 
 
-    return render(request, 'base/login_ad_register.html', context)
+    return render(request, 'base/login_register_org.html', context)
 
 
 @login_required(login_url='login')

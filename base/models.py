@@ -9,7 +9,7 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=100,null=True)
     email = models.EmailField(unique=True, null=True)
     about_you = models.TextField(null=True)
-    profile_pic = models.ImageField(null=True , blank=True) #later add the default profile image
+    profile_pic = models.ImageField(null=True , blank=True, default="avatar.svg") #later add the default profile image
     # profile_pic = models.ImageField(default="avatar.svg", null=True , blank=True)
 
     def  __str__(self):

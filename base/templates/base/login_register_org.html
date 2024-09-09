@@ -1,7 +1,6 @@
 {% extends 'index.html' %} {% block content %}
 <main class="auth layout">
-    {% if page == 'login' %}
-    <!-- LOGIN SECTION  -->
+    {% if page == 'login_admin' %}
     <div class="container">
         <div class="layout__box">
             <div class="layout__boxHeader">
@@ -10,21 +9,17 @@
                 </div>
             </div>
             <div class="layout__body">
-                <h2 class="auth__tagline">Sign in to Feedlify</h2>
+                <h2 class="auth__tagline">Login as Administrator</h2>
 
                 <form class="form" action="" method="POST">
                     {% csrf_token %}
                     <div class="form__group form__group">
-                        <label for="room_name">Username</label>
-                        <input id="username" name="username" type="text" placeholder="Enter Username" />
+                        <label for="room_name">Organization Email</label>
+                        <input id="username" name="org_email" type="text" placeholder="e.g.johndoe@email.com" />
                     </div>
-                    <!-- <div class="form__group form__group">
-                        <label for="room_name">Email</label>
-                        <input id="username" name="email" type="text" placeholder="e.g.johndoe@email.com" />
-                    </div> -->
                     <div class="form__group">
-                        <label for="password">Password</label>
-                        <input id="password" name="password" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" />
+                        <label for="password">Organization Password</label>
+                        <input id="password" name="org_password" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" />
                     </div>
 
                     <button class="btn btn--main" type="submit">
@@ -45,28 +40,26 @@
                 </svg>
 
                 Login
-                  </button>
+              </button>
                 </form>
 
                 <div class="auth__action">
                     <p>Haven't signed up yet?</p>
-                    <a href="{% url 'signup' %}" class="btn btn--link">Sign Up</a>
+                    <a href="{% url 'register_org' %}" class="btn btn--link">Sign Up</a>
                 </div>
             </div>
         </div>
     </div>
     {% else %}
-
-    <!-- SIGNUP SECTION  -->
     <div class="container">
         <div class="layout__box">
             <div class="layout__boxHeader">
                 <div class="layout__boxTitle">
-                    <h3>Register</h3>
+                    <h3>Register Organization</h3>
                 </div>
             </div>
             <div class="layout__body">
-                <h2 class="auth__tagline">Signup to Feedlify</h2>
+                <h2 class="auth__tagline">Register Organization</h2>
 
                 <form class="form" action="" method="POST">
                     {% csrf_token %} {% for field in form %}
@@ -98,8 +91,8 @@
                 </form>
 
                 <div class="auth__action">
-                    <p>Already signed up ?</p>
-                    <a href="{% url 'login' %}" class="btn btn--link">Sign In</a>
+                    <p>Already registered organization ?</p>
+                    <a href="{% url 'login_admin' %}" class="btn btn--link">Sign In</a>
                 </div>
             </div>
         </div>
