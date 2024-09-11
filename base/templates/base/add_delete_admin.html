@@ -1,34 +1,87 @@
-{% extends 'index.html' %}{% block content %} {% if page == 'add_admin' %}
-<div class="add_administrator">
-    <h1><a href="{{request.META.HTTP_REFERER}}">Back</a></h1>
+{% extends 'index.html' %} {% block content %} {% if page == 'add_admin' %}
+<main class="delete-item layout">
+    <div class="container">
+        <div class="layout__box">
+            <div class="layout__boxHeader">
+                <div class="layout__boxTitle">
+                    <a href="{{request.META.HTTP_REFERER}}">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                                <title>arrow-left</title>
+                                <path
+                                    d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z">
+                                </path>
+                            </svg>
+                    </a>
+                    <h3>Back</h3>
+                </div>
+            </div>
+            <div class="layout__body">
+                <h2 style="text-align: center;">Add Administrator</h2>
+                <form class="form" action="" method="POST">
+                    {% csrf_token %}
 
-    <h1>Add New Administrator</h1>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <label for="email">User Email</label>
-        <input type="email" name="email" required>
-        <br>
-        <br>
-        <input type="submit" value="Add Admin">
-    </form>
-</div>
+                    <div class="form__group form__group">
+                        <label for="room_name">Email</label>
+                        <input id="username" name="email" type="text" placeholder="e.g.johndoe@email.com" />
+                    </div>
 
+                    <div class="for__group">
+                        <input class="btn btn--main" type="submit" value="Confirm" />
+                    </div>
+
+                </form>
+            </div>
+            <div class="display_errors">
+                {% if messages %} {% for message in messages %}
+                <p style="padding-left: 10px;">{{message}}</p>
+                {% endfor %} {% endif %}
+            </div>
+        </div>
+    </div>
+</main>
 {% elif page == 'delete_admin' %}
-<div class="delete_administrator">
-    <h1><a href="{{request.META.HTTP_REFERER}}">Back</a></h1>
-    <h1>Delete Administrator</h1>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <label for="email">User Email</label>
-        <input type="email" name="email">
-        <input type="submit">
-    </form>
 
-</div>
-{% endif %}
-<div class="display_errors">
-    {% if messages %} {% for message in messages %}
-    <p>{{message}}</p>
-    {% endfor %} {% endif %}
-</div>
-{% endblock %}
+<main class="delete-item layout">
+    <div class="container">
+        <div class="layout__box">
+            <div class="layout__boxHeader">
+                <div class="layout__boxTitle">
+                    <a href="{{request.META.HTTP_REFERER}}">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                                <title>arrow-left</title>
+                                <path
+                                    d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z">
+                                </path>
+                            </svg>
+                    </a>
+                    <h3>Back</h3>
+                </div>
+            </div>
+            <div class="layout__body">
+                <h2 style="text-align: center;">Remove Administrator</h2>
+                <form class="form" action="" method="POST">
+                    {% csrf_token %}
+
+                    <div class="form__group form__group">
+                        <label for="room_name">Admin's Email</label>
+                        <input id="username" name="email" type="text" placeholder="e.g.johndoe@email.com" />
+                    </div>
+
+                    <div class="for__group">
+                        <input class="btn btn--main" type="submit" value="Confirm" />
+                    </div>
+
+                </form>
+            </div>
+            <div class="display_errors">
+                {% if messages %} {% for message in messages %}
+                <p style="padding-left: 10px;">{{message}}</p>
+                {% endfor %} {% endif %}
+            </div>
+
+
+        </div>
+    </div>
+</main>
+
+{% endif %} {% endblock %}

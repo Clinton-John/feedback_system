@@ -42,7 +42,7 @@ def feedback_page(request, pk):
   context = {'org':org, 'org_profile':org_profile}
 
 
-  return render(request, 'base/qrcode_form.html', context)
+  return render(request, 'base/feedback_form.html', context)
 
 def add_admin(request, pk):
   page = 'add_admin'
@@ -61,13 +61,14 @@ def add_admin(request, pk):
       user = User.objects.get(email = user_email)
       r_organization.org_admins.add(user)
       messages.success(request,f"{user.username} Successfully added as an administrator to {r_organization.org_name}")
-
-      admin_added.send(sender=r_organization, user=user, organization=r_organization)
+      
+      ### when the email functionaalities are added then it is also added
+      # admin_added.send(sender=r_organization, user=user, organization=r_organization)
 
 
       return redirect('admins_page', pk=r_organization.id)
     else:
-      messages.error(request, "The User isnt Registered to the system")
+      messages.error(request, "The User isn't Registered to the system")
 
   context = {'page':page}
 

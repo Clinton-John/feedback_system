@@ -1,0 +1,16 @@
+{% extends 'index.html' %} {% block content %}
+
+<h1><a href="{{request.META.HTTP_REFERER}}">Go Back</a></h1>
+
+<div class="individual_feedback">
+    <h2>Individual feedback</h2>
+    {% if individual_feedback.user_email %}
+    <h2>User Email : {{individual_feedback.user_email}}</h2>
+    {% endif %}
+    <h2>Feedback Type: {{individual_feedback.feedback_type.name}}</h2>
+    <p>{{individual_feedback.user_feedback}}</p>
+
+
+    <h2><a href="{% url 'delete_feedback' individual_feedback.id %}">Delete </a></h2>
+</div>
+{% endblock %}

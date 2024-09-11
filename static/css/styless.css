@@ -18,3 +18,12 @@
     /* Flex-grow: 0, Flex-shrink: 0, Flex-basis: 70% */
     /* background-color: lightgreen; */
 }
+
+
+/* Additional Styling  */
+
+.individual_feedback {
+    align-items: center;
+    text-align: center;
+    padding-left: 20px;
+}

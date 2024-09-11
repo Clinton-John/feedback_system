@@ -24,9 +24,13 @@
             <div class="profile__about">
                 <h3>About You</h3>
                 <p>
-                    {{user.about_you}}
+                    {{request.user.profile.about_you}}
                 </p>
             </div>
+        </div>
+        <div>
+            <h3><a href="{% url 'delete_profile' request.user.id %}">Delete Account</a></h3>
+
         </div>
         <!-- 
         <div class="roomList__header">
