@@ -23,9 +23,13 @@
             </div>
             <div class="profile__about">
                 <h3>About You</h3>
+                {% if request.user.profile.about_you %}
                 <p>
                     {{request.user.profile.about_you}}
                 </p>
+                {% else %}
+                <p>Update Profile and describe yourself</p>
+                {% endif %}
             </div>
         </div>
         <div>
