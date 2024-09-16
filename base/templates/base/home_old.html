@@ -1,0 +1,46 @@
+{% extends 'index.html' %}{% block content %} {% include 'base/navbar.html' %} {% include 'base/about_us.html' %} {% include 'base/section2.html' %}
+<h1><a href="{% url 'home' %}">Home</a></h1>
+<div class="header_section">
+
+    <!-- if user doesnt have an account then  -->
+    <h1><a href="">About Us</a></h1>
+    <!-- else if they have an account then  -->
+
+    {% if request.user.is_authenticated %}
+    <h1><a href="{% url 'user_profile' request.user.id %}">Profile</a></h1>
+
+    <h1><a href="{% url 'logout' %}">Logout</a></h1>
+    <h2>Logged in as {{request.user}}</h2>
+    {% else %}
+    <h1><a href="{% url 'signup' %}">Signup/Login</a></h1>
+    <h1><a href="{% url 'login' %}">Login</a></h1>
+    {% endif %}
+</div>
+<hr>
+<div class="body_section">
+
+    <!-- if the user is not logged in or doesnt have an account then the following will be displayed -->
+    <h2>
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'register_org' %}" class="register_company">Register Company</a>
+
+        <br>
+        <h2><a href="{% url 'login_admin' %}">Login To Organization Admin</a></h2>
+        {% endif %}
+    </h2>
+
+    <p>About the Company and the services offered. Notifications about new feedback sent</p>
+    <p>register with us to effectively manage your business and the users feedbacks</p>
+    <!-- if the users are logged in then the following section will be diplayed -->
+    <div class="messages_class">
+        <p>message received</p>
+        <p>time received</p>
+    </div>
+
+</div>
+
+<div class="footer_section">
+    {% include 'base/footer.html' %}
+
+</div>
+{% endblock %}
