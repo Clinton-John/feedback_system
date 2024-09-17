@@ -1,9 +1,49 @@
-{% extends 'index.html' %}{% block content %} {% include 'base/navbar.html' %} {% include 'base/about_us.html' %} {% include 'base/section2.html' %}
+{% extends 'index.html' %}{% block content %} {% include 'base/navbar.html' %} {% include 'base/about_us.html' %}
+<!-- SECTION 2 HOME PAGE -->
+<section class="section-padding"></section>
+<div class="footer_container">
+    <div class="row">
 
+        <div class="col-lg-10 col-12 text-center mx-auto">
+            <h2 class="mb-5 auth__tagline">Instant Feedback, Smarter Growth</h2>
+        </div>
 
+        <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
+            <div class="featured-block d-flex justify-content-center align-items-center">
+                <a href="{% url 'register_org' %}" class="d-block">
+                    <img src="static/icons/register_org1.png" class="featured-block-image img-fluid" alt="">
 
-<div class="footer_section"></div>
-{% include 'base/footer.html' %}
+                    <p class="featured-block-text">Register an <strong>Organization</strong></p>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-4">
+            <div class="featured-block d-flex justify-content-center align-items-center">
+                <a href="" class="d-block">
+                    <img src="static/icons/contact_us.png" class="featured-block-image img-fluid" alt="">
+
+                    <p class="featured-block-text"><strong>Contact Feedlify </strong> Support </p>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-4">
+            <div class="featured-block d-flex justify-content-center align-items-center">
+                <a href="" class="d-block">
+                    <img src="static/icons/data_analysis.png" class="featured-block-image img-fluid" alt="">
+
+                    <p class="featured-block-text"> <strong>Analyse </strong>received Feedbacks </p>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+</section>
+
+<div class="footer_section">
+    {% include 'base/footer.html' %}
 
 </div>
 {% endblock %}

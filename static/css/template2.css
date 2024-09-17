@@ -1077,3 +1077,29 @@ blockquote {
     font-size: 1.1rem;
     line-height: 1.8;
 } */
+
+.appreciation_page {
+    padding: 20px;
+    background-color: var(--color-main-light);
+    border-radius: 8px;
+    text-align: center;
+    color: var(--color-dark);
+}
+
+.org_qrcode {
+    padding: 20px;
+    background-color: var(--color-light);
+    border-radius: 8px;
+    text-align: center;
+    color: var(--color-dark);
+}
+
+.org_qrcode a {
+    color: var(--color-main);
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.org_qrcode a:hover {
+    text-decoration: underline;
+}

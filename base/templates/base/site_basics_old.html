@@ -1,0 +1,18 @@
+{% extends 'index.html' %} {% block content %} {% if page == 'appreciation_page' %}
+<div class="appreciation_page">
+    <h1>Appreciation Page</h1>
+    <p>Thank You for giving us your feedback on our services. We hope to make our organization a better place through your feedbacks</p>
+</div>
+{% elif page == 'org_qrcode' %}
+<div class="org_qrcode">
+    <h2><a href="{{request.META.HTTP_REFERER}}">Back</a></h2>
+    <hr>
+    <h2>
+        <a href="{% url 'download_qrcode' org.id %}">Download</a>
+    </h2>
+
+    <h1>{{org.org_name}} QR code</h1>
+    <img src="{{org.org_qr_code.url}}" alt="Organization QR Code" class="qr-code-image">
+
+</div>
+{% endif %} {% endblock %}

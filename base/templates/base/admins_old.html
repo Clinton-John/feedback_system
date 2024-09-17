@@ -1,0 +1,38 @@
+{% extends 'index.html' %} {% block content %} {% include 'base/admins_trial.html' %} {% include 'base/admins_home.html' %}
+<h1><a href="{% url 'home' %}">Home</a></h1>
+<h1><a href="{% url 'logout' %}">logout</a></h1>
+
+<div class="navbar_class">
+    <h1>Top Navigation Bar</h1>
+    <h1>{{organization.org_name}} Admins Page</h1>
+    <h2><a href="{% url 'org_profile' organization.id %}">Profile-{{organization.org_name}}</a></h2>
+    {% if request.user == organization.super_admin %}
+    <!-- done  -->
+    <h2><a href="{% url 'org_settings' organization.id %}">Settings</a></h2>
+    {% endif %}
+
+</div>
+<hr>
+
+<hr>
+<div class="user_feedbacks">
+    <div class="feedback1">
+        <h1>Feedback options</h1>
+        <h3><a href="{% url 'admins_page' organization.id %}">All</a></h3>
+        {% for feedback in feedback_categories %}
+        <h3><a href="{% url 'admins_page' organization.id %}?q={{feedback|urlencode}}">{{ feedback }} <span>   {{feedback.userfeedback_set.all.count}}</span></a></h3>
+        {% endfor %}
+    </div>
+    <div class="feedback2">
+        <h1>The Feedbacks received</h1>
+
+        {% for feedback in org_feedbacks %}
+        <ul>
+            <li><a href="{% url 'individual_feedback' feedback.id %}">{{feedback.user_feedback}}</a></li>
+        </ul>
+        {% endfor %}
+    </div>
+
+
+</div>
+<hr> {% endblock %}
