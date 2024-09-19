@@ -1,29 +1,27 @@
 {% extends 'index.html' %} {% block content %}
-
 <h1>
-    <a href="{% url 'admins_page' org.id %}">Back</a>
+    <a href="{% url 'admins_page' org.id %}">Back </a>
 </h1>
-
 <div class="org_settings">
     <h1>Organization Settings</h1>
     <h1>{{org.org_name}} Settings Page</h1>
-
     <h2><a href="{% url 'add_admin' org.id %}">Add New Administrator</a></h2>
+
     <h2><a href="{% url 'delete_admin' org.id %}">Remove Administrator</a></h2>
+    <!-- when was the service offered to you/ when did you acquire the product -->
+
 
     <h2><a href="{% url 'user_feedback' org.id %}">Check on the form</a></h2>
-
     {% if org.org_qr_code %}
     <h2><a href="{% url 'get_org_code' org.id %}">Check QRCode</a></h2>
+
     {% else %}
     <h2><a href="{% url 'generate_qr_code' org.id %}">Generate QR Code</a></h2>
     {% endif %}
 
     <h2><a href="{% url 'delete_org' org.id %}">Delete Organization</a></h2>
-
     {% if messages %} {% for message in messages %}
-    <p class="message">{{message}}</p>
+    <p>{{message}}</p>
     {% endfor %} {% endif %}
 </div>
-
 {% endblock %}
