@@ -1,68 +1,63 @@
 {% extends 'index.html' %} {% block content %} {% if org_profile.org_logo %}
 <a href="{% url 'home' %}">
-    <img src="{{org_profile.org_logo.url}}" alt="">
+    <img class="org-logo" src="{{org_profile.org_logo.url}}" alt="Organization Logo">
 </a>
 {% endif %}
-<h1>Welcome to {{org.org_name}} user feedback page</h1>
-<p>Please Select the Feedback type based on the categories and enter your feedback. The Other fields in the form are optional</p>
-<form action="" method="POST">
-    {% csrf_token %}
-    <label for="">Email</label>
-    <input type="text" name="user_email" placeholder="Optional" id="">
-    <br>
-    <br>
-    <label for="">Feedback type</label>
-    <select name="feedback_type" id="" required>
-        <option value="" disabled selected>Select feedback Type</option>
-        <option value="Complaint">Complaint</option>
-        <option value="Suggestion">Suggestion</option>
-        <option value="Praise">Praise</option>
-        <option value="Question">Question</option>
-    </select>
-    <br>
-    <br>
-    <label for="">Feedback Field</label>
-    <textarea name="user_feedback" id="" placeholder="Message ...."></textarea>
-    <br>
-    <br>
-    <label for="">Rate our Organization</label>
-    <select name="user_ratings" id="">
-        <option value="" disabled selected>Select a Rating</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-    </select>
-    <br>
-    <br>
+<div class="feedback-container">
+    <h1>Welcome to {{org.org_name}} User Feedback Page</h1>
+    <p>Please select the feedback type and enter your feedback. The other fields in the form are optional.</p>
 
-    <input type="submit">
-</form>
-<hr>
-<div class="contact_us">
-    <p>For Futher Communication, Contact our Organization through the following channels</p>
-    <p>{{org_profile.contact_email}}</p>
-    <h3>
-        <a href="mailto:{{org_profile.contact_email}}">Email</a>
-    </h3>
-    <h3>
-        <a href="">{{org_profile.org_contact}}</a>
-    </h3>
-    <h3>
-        <a href="{{org_profile.org_facebook}}">Facebook</a>
-    </h3>
-    <h3>
-        <a href="{{org_profile.org_twitter}}">X</a>
-    </h3>
-    <h3>
-        <a href="{{org_profile.org_instagram}}">Facebook</a>
-    </h3>
-    <h3>
-        <a href="{{org_profile.org_website}}">Visit our webpage</a>
-    </h3>
+    <form action="" method="POST" class="feedback-form">
+        {% csrf_token %}
 
+        <div class="form-group">
+            <label for="user_email">Email</label>
+            <input type="email" name="user_email" class="form-control" placeholder="Optional" id="user_email">
+        </div>
 
+        <div class="form-group">
+            <label for="feedback_type">Feedback Type</label>
+            <select name="feedback_type" id="feedback_type" class="form-control" required>
+                <option value="" disabled selected>Select feedback type</option>
+                <option value="Complaint">Complaint</option>
+                <option value="Suggestion">Suggestion</option>
+                <option value="Praise">Praise</option>
+                <option value="Question">Question</option>
+            </select>
+        </div>
 
+        <div class="form-group">
+            <label for="user_feedback">Feedback</label>
+            <textarea name="user_feedback" id="user_feedback" class="form-control" placeholder="Enter your feedback..." rows="4"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="user_ratings">Rate our Organization</label>
+            <select name="user_ratings" id="user_ratings" class="form-control">
+                <option value="" disabled selected>Select a rating</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Feedback</button>
+    </form>
+
+    <hr>
+
+    <div class="contact-us">
+        <p>For further communication, contact our organization through the following channels:</p>
+        <ul class="contact-list">
+            <li>Email: <a href="mailto:{{org_profile.contact_email}}">{{org_profile.contact_email}}</a></li>
+            <li>Phone: <a href="tel:{{org_profile.org_contact}}">{{org_profile.org_contact}}</a></li>
+            <li>Facebook: <a href="{{org_profile.org_facebook}}" target="_blank">Facebook</a></li>
+            <li>Twitter: <a href="{{org_profile.org_twitter}}" target="_blank">X</a></li>
+            <li>Instagram: <a href="{{org_profile.org_instagram}}" target="_blank">Instagram</a></li>
+            <li>Website: <a href="{{org_profile.org_website}}" target="_blank">Visit our webpage</a></li>
+        </ul>
+    </div>
 </div>
 {% endblock %}

@@ -166,15 +166,21 @@ def individual_feedback(request, pk):
 
 def delete_feedback(request, pk):
   feedback = UserFeedback.objects.get(id=pk)
+  org_feedback = feedback.organization
+  # all user admins page to be passed through the context dictionary.Converted to a list to allow iteration
+  org_admins = list(org_feedback.org_admins.all())
+  print(org_admins) 
 
-  # if request.user not in organization.org_admins.all():
+  # if request.user not in org_admins:
   #   messages.error("You cant Delete the Feedback !!!")
 
   if request.method == 'POST':
     feedback.delete()
-    return  redirect('home')
+
+    return  redirect('admins_page', org_feedback.id)
+    
   
-  context = {'obj':feedback}
+  context = {'obj':feedback, 'org_admins': org_admins}
   return render(request, 'base/delete.html', context)
 
 def generate_qr_code(request, pk):
@@ -208,7 +214,7 @@ def generate_qr_code(request, pk):
 
   messages.success(request,'QR code successfully generated')
 
-  return redirect('org_settings', organization.id)
+  return ('org_settings', organization.id)
 
 def get_org_code(request, pk):
   page = 'org_qrcode'
