@@ -68,3 +68,18 @@ class UserFeedback(models.Model):
 
     def __str__(self):
         return self.user_feedback
+
+# Implementing the customized notification 
+class FormSubmissionCounter(models.Model):
+    organization = models.OneToOneField(RegisteredOrg, on_delete=models.CASCADE, related_name='submission_counter')
+    # organization = models.OneToOneField(RegisteredOrg, on_delete=models.CASCADE, related_name='submission_counter', default=1)
+    counter = models.IntegerField(default=0)
+    last_email_sent = models.DateTimeField(null=True, blank=True)
+
+    def increment_counter(self):
+        self.counter += 1
+        self.save()
+
+    def reset_counter(self):
+        self.counter = 0
+        self.save()

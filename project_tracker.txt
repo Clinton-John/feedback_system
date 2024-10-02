@@ -64,6 +64,8 @@ delete user_account -- Done
 delete feedback -- Done
 
 delete in feedback page shouldnt redirect to home but it should be to the organizational admins page -- because the feedback is related to a specifc organization we can trace it back to the organization to make it work  
-only the admins in the organization can delete the feature 
+only the admins in the organization can delete the feature -- Done 
 
-Implement the feature to allow users specify after what number of feedbacks should they receive the notifications
+Implement a feature to allow users specify after what number of feedbacks should they receive an email
+IMPLEMENTATION OF THE ABOVE 
+creating a new model to count the number of forms received and the email to send is only triggered when the count is reached 

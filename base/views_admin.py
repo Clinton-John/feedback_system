@@ -20,6 +20,7 @@ from django.http import FileResponse
 
 
 def feedback_page(request, pk):
+  # org = RegisteredOrg.objects.get(id=pk)
   org = RegisteredOrg.objects.get(id=pk)
   org_profile = OrgProfile.objects.get(id=pk)
   if request.method == 'POST':
@@ -27,7 +28,6 @@ def feedback_page(request, pk):
 
     feedback_type_inp, created = FeedbackType.objects.get_or_create(name=feedback_type_val)
     # feedback_type_inp = FeedbackType.objects.get(name=feedback_type_sval) #only if the feedback types are already typed in
-
 
     feedback = UserFeedback.objects.create(
       organization= org,
@@ -161,26 +161,28 @@ def delete_org(request, pk):
 
 def individual_feedback(request, pk):
   individual_feedback = UserFeedback.objects.get(id=pk)
-  context = {'individual_feedback':individual_feedback}
+  org_feedback = individual_feedback.organization
+  
+  context = {'individual_feedback':individual_feedback, 'org_feedback':org_feedback}
   return render(request, 'base/feedback.html', context)
 
 def delete_feedback(request, pk):
   feedback = UserFeedback.objects.get(id=pk)
   org_feedback = feedback.organization
   # all user admins page to be passed through the context dictionary.Converted to a list to allow iteration
-  org_admins = list(org_feedback.org_admins.all())
+  org_admins_db = list(org_feedback.org_admins.all())
+  org_admins = list(org_feedback.org_admins.values_list('username', flat=True))
   print(org_admins) 
 
-  # if request.user not in org_admins:
-  #   messages.error("You cant Delete the Feedback !!!")
+  if request.user not in org_admins:
+    messages.error(request, "You cant Delete the Feedback !!!")
+  else:
+      if request.method == 'POST':
+        feedback.delete()
+        return  redirect('admins_page', org_feedback.id)
 
-  if request.method == 'POST':
-    feedback.delete()
-
-    return  redirect('admins_page', org_feedback.id)
-    
   
-  context = {'obj':feedback, 'org_admins': org_admins}
+  context = {'obj':feedback, 'org_admins': org_admins, 'org_feedback':org_feedback}
   return render(request, 'base/delete.html', context)
 
 def generate_qr_code(request, pk):

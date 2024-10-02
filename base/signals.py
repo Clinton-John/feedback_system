@@ -1,8 +1,9 @@
 ## All The Email sending functionality are turned off for now but when connected to the net should be integrated to work properly
 
 from django.conf import settings
-from .models import User, Profile, RegisteredOrg, OrgProfile, UserFeedback
+from .models import User, Profile, RegisteredOrg, OrgProfile, UserFeedback ,FormSubmissionCounter
 from django.db.models.signals import post_save
+from django.utils import timezone
 
 #sending email notification
 from django.core.mail import send_mail
@@ -39,9 +40,9 @@ def createProfile(sender, instance, created, **kwargs):
             email = user.email
         )
 
-        ## Account Creation and sending emails
+        # Account Creation and sending emails
         # subject = "Account Creation"
-        # message = f"Hello {user.username}, Your Feedlify acooutn has been successfully created."
+        # message = f"Hello {user.username}, Your Feedlify acount has been successfully created."
 
         # send_mail(
         #     subject,
@@ -61,33 +62,45 @@ def createOrgProfile(sender, instance, created, **kwargs):
             org_logo = registered_org.org_avatar
         )
 
-        # subject = "Feedlify Organization Creation"
-        # message = f"Welcome {registered_org.org_name} to Feedlify. We hope the feedback system helps improve your organizational perfomance"
+        subject = "Feedlify Organization Creation"
+        message = f"Welcome {registered_org.org_name} to Feedlify. We hope the feedback system helps improve your organizational perfomance"
 
-        # send_mail(
-        #     subject,
-        #     message,
-        #     settings.EMAIL_HOST_USER, #from
-        #     [registered_org.org_email], #to
-        #     fail_silently= False
-        # )
+        send_mail(
+            subject,
+            message,
+            settings.EMAIL_HOST_USER, #from
+            [registered_org.org_email], #to
+            fail_silently= False
+        )
 
 
 
 # sends to the organization email any time there is a new feedback
 def receivedFeedback(sender, instance, created, **kwargs):
     if created:
-        org_instance = instance
-        subject = 'There is a New Notification'
+        org_instance = instance.organization
+        print(f"Instance passed is ::: {instance}")
+
+        # Implementing the email notification system    
+        counter_obj, created = FormSubmissionCounter.objects.get_or_create(organization=org_instance)
+        counter_obj.increment_counter()
+
+        subject = 'There is a New Notification.. 5 feedbacks have been received'
         message = "There is a new message sent to your organizations feedback page"
 
-    #     send_mail(
-    #     subject,
-    #     message,
-    #     settings.EMAIL_HOST_USER, #from
-    #     [org_instance.submited_to], #to
-    #     fail_silently=False,
-    # )
+        if counter_obj.counter >= 5:
+            send_mail(
+            subject,
+            message,
+            settings.EMAIL_HOST_USER, #from
+            [org_instance.submited_to], #to
+            fail_silently=False,
+        )
+
+            counter_obj.reset_counter()
+            # Update the last email sent time
+            counter_obj.last_email_sent = timezone.now()
+            counter_obj.save()
 
 
 # notification of newly created feedback
