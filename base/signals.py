@@ -78,8 +78,8 @@ def createOrgProfile(sender, instance, created, **kwargs):
 # sends to the organization email any time there is a new feedback
 def receivedFeedback(sender, instance, created, **kwargs):
     if created:
+        feed_instance = instance
         org_instance = instance.organization
-        print(f"Instance passed is ::: {instance}")
 
         # Implementing the email notification system    
         counter_obj, created = FormSubmissionCounter.objects.get_or_create(organization=org_instance)
@@ -87,13 +87,14 @@ def receivedFeedback(sender, instance, created, **kwargs):
 
         subject = 'There is a New Notification.. 5 feedbacks have been received'
         message = "There is a new message sent to your organizations feedback page"
-
-        if counter_obj.counter >= 5:
+        
+        ## it should be created to allow the numbers to be dynamically passed by a user 
+        if counter_obj.counter >= 3:
             send_mail(
             subject,
             message,
-            settings.EMAIL_HOST_USER, #from
-            [org_instance.submited_to], #to
+            settings.EMAIL_HOST_USER, #from  
+            [feed_instance.submited_to], #to
             fail_silently=False,
         )
 

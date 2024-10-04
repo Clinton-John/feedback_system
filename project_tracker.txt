@@ -69,3 +69,15 @@ only the admins in the organization can delete the feature -- Done
 Implement a feature to allow users specify after what number of feedbacks should they receive an email
 IMPLEMENTATION OF THE ABOVE 
 creating a new model to count the number of forms received and the email to send is only triggered when the count is reached 
+
+Test if the feedback is specific to each and every organizational
+check if the notification is checked if the specific number of emails is sent 
+
+the above 2 work perfectly as needed and suggested
+
+get the user specification of after how many emails they want to send
+
+create a db value where user specifes it before, then in the signal, retreive the variable and then pass the variable to the condition. This is how they can allow for notification
+
+allow for switching on and off. this can also be achieved through the database
+a good aproach is creating a settings models to handle all of the above 
