@@ -42,6 +42,7 @@ path('generate_code/<str:pk>/', views_admin.generate_qr_code, name="generate_qr_
 path('org_settings/<str:pk>', views_admin.org_settings, name='org_settings'),
 path('get_org_code/<str:pk>', views_admin.get_org_code, name='get_org_code'),
 path('download_qrcode/<str:pk>', views_admin.download_qrcode, name='download_qrcode'),
+path('notifications_settings/<str:pk>', views_admin.notifications_settings, name='notifications_settings'),
 
 # ------------ Delete Section ----- ###
 path('delete_org/<str:pk>', views_admin.delete_org, name='delete_org'),

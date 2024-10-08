@@ -1,7 +1,7 @@
 ## All The Email sending functionality are turned off for now but when connected to the net should be integrated to work properly
 
 from django.conf import settings
-from .models import User, Profile, RegisteredOrg, OrgProfile, UserFeedback ,FormSubmissionCounter
+from .models import User, Profile, RegisteredOrg, OrgProfile, UserFeedback , FormSubmissionCounter, NotificationSettings
 from django.db.models.signals import post_save
 from django.utils import timezone
 
@@ -56,22 +56,29 @@ def createProfile(sender, instance, created, **kwargs):
 def createOrgProfile(sender, instance, created, **kwargs):
     if created:
         registered_org = instance
+
+        not_settings = NotificationSettings.objects.create(
+            organization= registered_org,
+            no_of_notifications= 0,
+            notification_status= 'Yes'
+        )
+
         orgprofile = OrgProfile.objects.create(
             org_name = registered_org,
             org_descr = registered_org.org_descr,
             org_logo = registered_org.org_avatar
         )
 
-        subject = "Feedlify Organization Creation"
-        message = f"Welcome {registered_org.org_name} to Feedlify. We hope the feedback system helps improve your organizational perfomance"
+        # subject = "Feedlify Organization Creation"
+        # message = f"Welcome {registered_org.org_name} to Feedlify. We hope the feedback system helps improve your organizational perfomance"
 
-        send_mail(
-            subject,
-            message,
-            settings.EMAIL_HOST_USER, #from
-            [registered_org.org_email], #to
-            fail_silently= False
-        )
+        # send_mail(
+        #     subject,
+        #     message,
+        #     settings.EMAIL_HOST_USER, #from
+        #     [registered_org.org_email], #to
+        #     fail_silently= False
+        # )
 
 
 

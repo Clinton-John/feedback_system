@@ -19,4 +19,25 @@
     </div>
 
 </div>
+{% elif page == 'notifications_settings' %}
+<div>
+    <h1><a href="{% url 'org_settings' organization.id %}">Back</a></h1>
+    <h1>Notifications Settings</h1>
+    <div>
+        <h2>Notification status is : {{not_org.notification_status}}</h2>
+        <h2>Number of notifications : {{not_org.no_of_notifications}}</h2>
+    </div>
+    <hr>
+    <form action="" method="POST">
+        <label for="">Notifications</label>
+        <select name="" id="">
+            <option value="on">On</option>
+            <option value="off">Off</option>
+        </select>
+        <br>
+        <label>Number of Notifications</label>
+        <br>
+        <button>Submit</button>
+    </form>
+</div>
 {% endif %} {% endblock %}

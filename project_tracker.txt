@@ -81,3 +81,10 @@ create a db value where user specifes it before, then in the signal, retreive th
 
 allow for switching on and off. this can also be achieved through the database
 a good aproach is creating a settings models to handle all of the above 
+
+
+today
+delete all the models, re write the notifications and test if it functions on a new database
+
+Number of Notifications to be used in the signals.py file. if its set to yes then it should display. if no then it shouldnt display. 
+

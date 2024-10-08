@@ -1,13 +1,11 @@
 from django.conf import settings
 
-from .models import RegisteredOrg, User, UserFeedback, FeedbackType
+from .models import RegisteredOrg, User, UserFeedback, FeedbackType, NotificationSettings
 from django.contrib import messages
 from .forms import OrgForm, UpdateOrgForm, OrgUpdateForm
-
 from django.shortcuts import render, redirect
 from .models import UserFeedback, RegisteredOrg, OrgProfile
 from django.contrib.auth.decorators import login_required
-
 from django.urls import reverse
 import qrcode
 import os
@@ -238,4 +236,11 @@ def download_qrcode(request, pk):
     else:
       messages.error("The above organization doesnt have a QR code")
 
+def notifications_settings(request, pk):
+  page = 'notifications_settings'
+  organization = RegisteredOrg.objects.get(id=pk)
+  not_org = NotificationSettings.objects.get(organization=organization)
+  #Now create the functionality to easily customize the user feedback page and pass the number of messages they want to the user page 
+  context = {'page':page, 'organization':organization,'not_org':not_org }
+  return render(request, 'base/site_basics.html', context)
 

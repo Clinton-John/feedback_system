@@ -83,3 +83,11 @@ class FormSubmissionCounter(models.Model):
     def reset_counter(self):
         self.counter = 0
         self.save()
+
+class NotificationSettings(models.Model):
+    organization = models.OneToOneField(RegisteredOrg, on_delete=models.CASCADE)
+    notification_status = models.TextField(null=True, blank=True, default='On')
+    no_of_notifications = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.notification_status
