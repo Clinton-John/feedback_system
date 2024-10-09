@@ -240,7 +240,16 @@ def notifications_settings(request, pk):
   page = 'notifications_settings'
   organization = RegisteredOrg.objects.get(id=pk)
   not_org = NotificationSettings.objects.get(organization=organization)
+  # can be adjusted later
+  notification_range = list(range(1,11))
+  if request.method == "POST":
+    not_org.notification_status = request.POST.get('notification_status')
+    not_org.no_of_notifications = request.POST.get('num_of_notifications')
+
+    not_org.save()
+
+
   #Now create the functionality to easily customize the user feedback page and pass the number of messages they want to the user page 
-  context = {'page':page, 'organization':organization,'not_org':not_org }
+  context = {'page':page, 'organization':organization,'not_org':not_org, 'notification_range':notification_range }
   return render(request, 'base/site_basics.html', context)
 

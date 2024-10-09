@@ -88,3 +88,4 @@ delete all the models, re write the notifications and test if it functions on a 
 
 Number of Notifications to be used in the signals.py file. if its set to yes then it should display. if no then it shouldnt display. 
 
+Add the on and off functionality

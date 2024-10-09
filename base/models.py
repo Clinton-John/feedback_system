@@ -87,7 +87,7 @@ class FormSubmissionCounter(models.Model):
 class NotificationSettings(models.Model):
     organization = models.OneToOneField(RegisteredOrg, on_delete=models.CASCADE)
     notification_status = models.TextField(null=True, blank=True, default='On')
-    no_of_notifications = models.IntegerField(default=0)
+    no_of_notifications = models.IntegerField(default=1)
 
     def __str__(self):
         return self.notification_status

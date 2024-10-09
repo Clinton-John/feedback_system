@@ -12,6 +12,8 @@ from django.core.mail import send_mail
 from django.dispatch import Signal
 from django.dispatch import receiver
 
+from django.db import transaction
+
 # admin_added = Signal()
 
 # @receiver(admin_added)
@@ -53,6 +55,7 @@ def createProfile(sender, instance, created, **kwargs):
         # )
 
 #when an organization is created, it also creates the profile and sends the email to the user
+@transaction.atomic
 def createOrgProfile(sender, instance, created, **kwargs):
     if created:
         registered_org = instance
@@ -81,22 +84,24 @@ def createOrgProfile(sender, instance, created, **kwargs):
         # )
 
 
-
 # sends to the organization email any time there is a new feedback
 def receivedFeedback(sender, instance, created, **kwargs):
     if created:
         feed_instance = instance
         org_instance = instance.organization
+        notifications_settings = NotificationSettings.objects.get(organization=org_instance)
+
 
         # Implementing the email notification system    
         counter_obj, created = FormSubmissionCounter.objects.get_or_create(organization=org_instance)
         counter_obj.increment_counter()
 
-        subject = 'There is a New Notification.. 5 feedbacks have been received'
-        message = "There is a new message sent to your organizations feedback page"
+        subject = 'There is a New Notification sent to your organization'
+        # message = feed_instance.user_feedack
+        message = feed_instance.user_feedback
         
         ## it should be created to allow the numbers to be dynamically passed by a user 
-        if counter_obj.counter >= 3:
+        if counter_obj.counter >= notifications_settings.no_of_notifications:
             send_mail(
             subject,
             message,
@@ -119,3 +124,11 @@ post_save.connect(createProfile, sender=User)
 
 #notification of creating an organization profile
 post_save.connect(createOrgProfile, sender=RegisteredOrg)
+
+
+
+##To ensure the signals both fail, neither is created, you can use the transaction to ensure this
+
+# from django.db import transaction
+# @transaction.atom
+

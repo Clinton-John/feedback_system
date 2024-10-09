@@ -29,13 +29,20 @@
     </div>
     <hr>
     <form action="" method="POST">
-        <label for="">Notifications</label>
-        <select name="" id="">
+        {% csrf_token %}
+        <label for="notification_status">Notifications</label>
+        <select name="notification_status" id="">
             <option value="on">On</option>
             <option value="off">Off</option>
         </select>
         <br>
         <label>Number of Notifications</label>
+        <select name="num_of_notifications" required>
+            <!-- Generate options from 1 to 100 -->
+            {% for i in notification_range %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
         <br>
         <button>Submit</button>
     </form>
