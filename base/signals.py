@@ -99,9 +99,10 @@ def receivedFeedback(sender, instance, created, **kwargs):
         subject = 'There is a New Notification sent to your organization'
         # message = feed_instance.user_feedack
         message = feed_instance.user_feedback
-        
+
+        # if notifications_settings.notification_status == 'On':
         ## it should be created to allow the numbers to be dynamically passed by a user 
-        if counter_obj.counter >= notifications_settings.no_of_notifications:
+        if counter_obj.counter == notifications_settings.no_of_notifications:
             send_mail(
             subject,
             message,
@@ -114,6 +115,8 @@ def receivedFeedback(sender, instance, created, **kwargs):
             # Update the last email sent time
             counter_obj.last_email_sent = timezone.now()
             counter_obj.save()
+        # else:
+        #     print('Notifications are disabled for this organization')
 
 
 # notification of newly created feedback
