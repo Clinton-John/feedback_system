@@ -1,0 +1,23 @@
+{% extends 'index.html' %} {% block content %}
+<h1 style="margin: 20px; padding: 20px;"><a href="{% url 'admins_page' feedback.organization.id %}">Back</a></h1>
+
+
+
+
+
+
+<!-- templates/feedback/feedback_detail.html -->
+<h1>Feedback Details</h1>
+
+<p><strong>User Email:</strong> {{ feedback.user_email }}</p>
+<p><strong>Feedback Type:</strong> {{ feedback.feedback_type }}</p>
+<p><strong>User Feedback:</strong> {{ feedback.user_feedback }}</p>
+
+{% if feedback.response_sent %}
+<p><strong>Admin Response:</strong> {{ feedback.admin_response }}</p>
+{% else %}
+<form method="POST">
+    {% csrf_token %} {{ form.as_p }}
+    <button type="submit">Send Response</button>
+</form>
+{% endif %} {% endblock %}

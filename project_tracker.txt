@@ -89,3 +89,9 @@ delete all the models, re write the notifications and test if it functions on a 
 Number of Notifications to be used in the signals.py file. if its set to yes then it should display. if no then it shouldnt display. 
 
 Add the on and off functionality
+
+REPLYING TO USERS AND THEIR QUESTIONS 
+In the UserFeedback model, add the field to allow for sending the text 
+    admin_response = models.TextField(null=True, blank=True)
+    response_sent = models.BooleanField(default=False) 
+add the form that only takes the field of the user  

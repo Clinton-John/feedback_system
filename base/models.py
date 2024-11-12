@@ -66,6 +66,10 @@ class UserFeedback(models.Model):
     submited_to = models.EmailField(max_length=100, null=True, blank=True)
     submit_date = models.DateTimeField(auto_now_add=True)
 
+    #to handle the reply functionality 
+    admin_response = models.TextField(null=True, blank=True)
+    response_sent = models.BooleanField(default=False) 
+
     def __str__(self):
         return self.user_feedback
 

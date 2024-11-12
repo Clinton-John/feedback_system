@@ -2,7 +2,7 @@ from django.conf import settings
 
 from .models import RegisteredOrg, User, UserFeedback, FeedbackType, NotificationSettings
 from django.contrib import messages
-from .forms import OrgForm, UpdateOrgForm, OrgUpdateForm
+from .forms import OrgForm, UpdateOrgForm, OrgUpdateForm, AdminResponseForm
 from django.shortcuts import render, redirect
 from .models import UserFeedback, RegisteredOrg, OrgProfile
 from django.contrib.auth.decorators import login_required
@@ -13,7 +13,8 @@ from django.core.files import File
 from django.core.files.base import ContentFile
 
 from django.http import FileResponse
-
+from django.core.mail import send_mail
+from django.conf import settings
 # from .signals import admin_added
 
 
@@ -170,18 +171,54 @@ def delete_feedback(request, pk):
   # all user admins page to be passed through the context dictionary.Converted to a list to allow iteration
   org_admins_db = list(org_feedback.org_admins.all())
   org_admins = list(org_feedback.org_admins.values_list('username', flat=True))
-  print(org_admins) 
+  # print(org_admins) 
+  if request.method == 'POST':
+    feedback.delete()
+    return redirect('admins_page',org_feedback.id)
 
-  if request.user not in org_admins:
-    messages.error(request, "You cant Delete the Feedback !!!")
-  else:
-      if request.method == 'POST':
-        feedback.delete()
-        return  redirect('admins_page', org_feedback.id)
-
-  
   context = {'obj':feedback, 'org_admins': org_admins, 'org_feedback':org_feedback}
   return render(request, 'base/delete.html', context)
+
+# def reply_feedback(request, pk):
+#   feedback = UserFeedback.objects.get(id=pk)
+
+#   context = {'feedback':feedback}
+#   return render(request, 'base/reply_email.html', context)
+
+def reply_feedback(request, pk):
+    feedback = UserFeedback.objects.get(id=pk)
+    form = AdminResponseForm(instance=feedback)
+
+    if request.method == 'POST':
+        form = AdminResponseForm(request.POST, instance=feedback)
+        if form.is_valid():
+            # Save the response to the database
+            feedback = form.save(commit=False)
+            feedback.response_sent = True  # Mark response as sent
+            feedback.save()
+
+            # Send email to the user with the response
+            subject = "Response to Your Feedback"
+            message = f"Dear User,\n\nThank you for your feedback!\n\nHere is our response:\n\n{feedback.admin_response}\n\nBest regards,\n{feedback.organization.org_name}"
+            recipient_list = [feedback.user_email]
+            
+            send_mail(subject, message, settings.EMAIL_HOST_USER, recipient_list, fail_silently=False)
+            
+            messages.success(request, 'Response sent successfully!')
+            return redirect('admins_page', id=feedback.organization.id)
+
+    context = {'feedback': feedback, 'form': form}
+    return render(request, 'base/reply_feedback.html', context)
+
+
+## To specify that only the super admin can delete the feedback implemented by the line below 
+  # if request.user not in org_admins:
+  #   messages.error(request, "You cant Delete the Feedback !!!")
+  # else:
+  #     if request.method == 'POST':
+  #       feedback.delete()
+  #       return  redirect('admins_page', org_feedback.id)
+
 
 def generate_qr_code(request, pk):
   organization = RegisteredOrg.objects.get(id=pk)

@@ -29,11 +29,21 @@
                     <p>{{individual_feedback.user_feedback}}</p>
                 </div>
 
+                <!-- reply functionality -->
+                {% if individual_feedback.user_email %}
+
+                <div class="for__group">
+                    <a href="{% url 'reply_feedback' individual_feedback.id %}" class="btn btn--main">Reply </a>
+                </div>
+                {% endif %}
+
+                <br>
+
                 <!-- delete functionality  -->
                 <div class="for__group">
                     <a href="{% url 'delete_feedback' individual_feedback.id %}" class="btn btn--main">Delete</a>
                 </div>
-
+                <br>
             </div>
         </div>
     </div>

@@ -31,6 +31,7 @@ path('add_admin/<str:pk>/', views_admin.add_admin, name="add_admin"),#Delete Adm
 path('update_org_profile/<str:pk>/', views_admin.update_org_profile, name="update_org_profile"),
 path('org_profile/<str:pk>/', views_admin.org_profile, name="org_profile"),
 path('delete_admin/<str:pk>/', views_admin.delete_admin, name="delete_admin"),
+path('reply_feedback/<str:pk>/', views_admin.reply_feedback, name="reply_feedback"),
 
 # ------------ FEEDBACK SECTION ----- ###
 path('user_feedack/<str:pk>/', views_admin.feedback_page, name="user_feedback"),

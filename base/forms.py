@@ -8,7 +8,6 @@ class MyUserCreationForm(UserCreationForm):
         model = User
         fields = [ 'username','first_name','last_name','email' , 'password1', 'password2']
 
-    
 
 class OrgForm(ModelForm):
     class Meta:
@@ -33,3 +32,11 @@ class ProfileForm(ModelForm):
         model = Profile
         fields = '__all__'
         exclude = ['user']
+
+class AdminResponseForm(ModelForm):
+    class Meta:
+        model = UserFeedback
+        fields = ['admin_response']
+        # widgets = {
+        #     'admin_response': format.Textarea(attrs={'placeholder': 'Write your response here...', 'rows': 4}),
+        # }
